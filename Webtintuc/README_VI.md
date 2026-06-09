@@ -288,7 +288,6 @@ python manage.py migrate
 ```
 
 ### Problem: CSRF Error
-- Kiểm tra `{% csrf_token %}` trong forms
 - Kiểm tra settings.py `CSRF_TRUSTED_ORIGINS`
 
 ---

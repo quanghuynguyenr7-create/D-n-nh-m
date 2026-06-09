@@ -77,7 +77,7 @@
             <div class="trending-list">
                 {% for news in trending_news %}
                 <div class="trending-item">
-                    <div class="trending-rank" style="background: {% if forloop.counter == 1 %}#e74c3c{% elif forloop.counter == 2 %}#e67e22{% elif forloop.counter == 3 %}#f39c12{% else %}#95a5a6{% endif %};">
+                    <div class="trending-rank" style="background: {% cycle '#e74c3c' '#f39c12' '#27ae60' %};">
                         {{ forloop.counter }}
                     </div>
                     <div class="trending-content">

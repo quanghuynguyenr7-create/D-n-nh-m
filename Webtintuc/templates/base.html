@@ -6,35 +6,334 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}News Website{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* ===== HEADER ===== */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        
+        .logo:hover {
+            color: #3498db;
+        }
+        
+        /* Header Info & Links */
+        .header-info {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .header-info a {
+            text-decoration: none;
+            color: #555;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+        
+        .header-info a:hover {
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .header-info .separator {
+            color: #ccc;
+        }
+        
+        /* Search Box */
+        .search-box {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        
+        .search-box input {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+            font-size: 14px;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        
+        .search-box button {
+            padding: 8px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .search-box button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* User Menu */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            white-space: nowrap;
+        }
+        
+        .user-greeting {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .user-menu a {
+            padding: 8px 15px;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .user-menu a:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        /* Navigation */
+        .navbar {
+            display: flex;
+            background-color: #2c3e50;
+            padding: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-item:hover {
+            background-color: #34495e;
+            border-bottom-color: #3498db;
+        }
+        
+        /* ===== MAIN CONTENT ===== */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 20px auto;
+            width: 100%;
+            padding: 0 20px;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h4 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #ecf0f1;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin: 8px 0;
+        }
+        
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #3498db;
+        }
+        
+        .footer-section .separator {
+            color: #7f8c8d;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #34495e;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            line-height: 35px;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #e74c3c;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .header-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .search-box input {
+                width: 200px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .navbar {
+                flex-wrap: wrap;
+            }
+            
+            .nav-item {
+                flex: 1 1 50%;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper">
-        <!-- HEADER -->
+        <!-- ===== HEADER ===== -->
         <header>
             <div class="header-top">
-                <a href="{% url 'webtintuc:index' %}" class="logo">News Website</a>
+                <!-- LOGO -->
+                <a href="{% url 'webtintuc:index' %}" class="logo">📰 News Website</a>
+                
+                <!-- HEADER INFO & SHORTCUTS -->
+                <div class="header-info">
+                    <a href="{% url 'webtintuc:index' %}">Mới nhất</a>
+                    <span class="separator">|</span>
+                    <a href="{% url 'webtintuc:index' %}">Xem nhiều</a>
+                    <span class="separator">|</span>
+                    <a href="{% url 'webtintuc:index' %}">Tin nóng</a>
+                </div>
+                
+                <!-- SEARCH BOX -->
                 <form class="search-box" action="{% url 'webtintuc:search' %}" method="GET">
-                    <input type="text" name="q" placeholder="Search..." value="{{ query }}">
-                    <button type="submit">Search</button>
+                    <input type="text" name="q" placeholder="Tìm kiếm..." value="{{ query }}">
+                    <button type="submit">Tìm</button>
                 </form>
+                
+                <!-- USER MENU -->
                 <div class="user-menu">
                     {% if user.is_authenticated %}
-                        <span class="user-greeting">Xin chào {{ user.username }}</span>
-                        <a href="{% url 'webtintuc:my_posts' %}" class="btn-small">My Posts</a>
-                        <a href="{% url 'webtintuc:logout' %}" class="btn-small">Logout</a>
+                        <span class="user-greeting">👤 {{ user.username }}</span>
+                        <a href="{% url 'webtintuc:my_posts' %}">Bài viết của tôi</a>
+                        <a href="{% url 'webtintuc:logout' %}">Đăng xuất</a>
                     {% else %}
-                        <a href="{% url 'webtintuc:login' %}" class="btn-small">Login</a>
-                        <a href="{% url 'webtintuc:register' %}" class="btn-small">Register</a>
+                        <a href="{% url 'webtintuc:login' %}">Đăng nhập</a>
+                        <a href="{% url 'webtintuc:register' %}">Đăng ký</a>
                     {% endif %}
                 </div>
             </div>
 
             <!-- NAVIGATION -->
             <nav class="navbar">
-                <a href="{% url 'webtintuc:index' %}" class="nav-item">Home</a>
+                <a href="{% url 'webtintuc:index' %}" class="nav-item">🏠 Trang Chủ</a>
                 {% for category in categories %}
                     <a href="{% url 'webtintuc:category' category.slug %}" class="nav-item">
-                        {{ category.name }}
+                        📂 {{ category.name }}
                     </a>
                 {% endfor %}
             </nav>
@@ -45,9 +344,54 @@
             {% block content %}{% endblock %}
         </main>
 
-        <!-- FOOTER -->
+        <!-- ===== FOOTER ===== -->
         <footer>
-            <p>&copy; 2024 News Website. All rights reserved.</p>
+            <div class="footer-content">
+                <!-- Section 1: Navigation -->
+                <div class="footer-section">
+                    <h4>🔗 Điều Hướng</h4>
+                    <ul>
+                        <li><a href="{% url 'webtintuc:index' %}">Trang Chủ</a></li>
+                        <li><a href="#">Danh mục</a></li>
+                        <li><a href="#">Mới nhất</a></li>
+                        <li><a href="#">Xem nhiều</a></li>
+                        <li><a href="#">Tin nóng</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Section 2: Legal & Support -->
+                <div class="footer-section">
+                    <h4>📋 Pháp Lý & Hỗ Trợ</h4>
+                    <ul>
+                        <li><a href="#">Điều khoản sử dụng</a></li>
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Hỗ trợ / FAQ</a></li>
+                        <li><a href="#">Hướng dẫn</a></li>
+                        <li><a href="#">Quảng cáo</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Section 3: Social & Contact -->
+                <div class="footer-section">
+                    <h4>📱 Kết Nối & Liên Hệ</h4>
+                    <ul>
+                        <li><a href="#">Liên hệ chúng tôi</a></li>
+                        <li><a href="#">Gửi phản hồi</a></li>
+                        <li><a href="#">Báo cáo lỗi</a></li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#" title="Facebook">f</a>
+                        <a href="#" title="Twitter">𝕏</a>
+                        <a href="#" title="Reddit">R</a>
+                        <a href="#" title="Email">✉</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2024 News Website. All rights reserved. | Phát triển bởi Django Team</p>
+            </div>
         </footer>
     </div>
 </body>

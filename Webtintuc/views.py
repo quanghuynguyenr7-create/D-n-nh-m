@@ -168,7 +168,7 @@ def category_posts(request, slug):
         'category': category,
         'posts': posts,
     }
-    return render(request, 'category_posts.html', context)
+    return render(request, 'category_news.html', context)
 
 
 @login_required(login_url='webtintuc:login')

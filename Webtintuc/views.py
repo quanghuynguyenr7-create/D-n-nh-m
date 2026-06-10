@@ -1,250 +1,184 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
-from django.core.paginator import Paginator
-from django.db.models import Q
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-import json
-
-from .models import News, Category, Author, NewsletterSubscriber
+from .models import Post, Category, Comment
+from .forms import RegisterForm, LoginForm, CommentForm
 
 
-# ==================== HOME VIEW ====================
+# ==================== CONTEXT HELPER ====================
+def get_base_context():
+    """Trả về context chung cho tất cả templates"""
+    return {
+        'categories': Category.objects.filter(category_type='news'),
+    }
+
+
+# ==================== AUTHENTICATION VIEWS ====================
+def register_view(request):
+    """Đăng ký tài khoản"""
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('webtintuc:index')
+    else:
+        form = RegisterForm()
+    
+    context = {
+        **get_base_context(),
+        'form': form,
+    }
+    return render(request, 'register.html', context)
+
+
+def login_view(request):
+    """Đăng nhập"""
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                return redirect(request.GET.get('next', 'webtintuc:index'))
+            else:
+                form.add_error(None, 'Tên đăng nhập hoặc mật khẩu không đúng')
+    else:
+        form = LoginForm()
+    
+    context = {
+        **get_base_context(),
+        'form': form,
+    }
+    return render(request, 'login.html', context)
+
+
+def logout_view(request):
+    """Đăng xuất"""
+    logout(request)
+    return redirect('webtintuc:index')
+
+
+# ==================== MAIN VIEWS ====================
 def index(request):
-    """Trang chủ - Hiển thị tin nổi bật và tin mới nhất"""
-    # Tin nổi bật
-    featured_news = News.objects.filter(
-        is_featured=True,
+    """Trang chủ - Hiển thị bài nổi bật, mới nhất, trending"""
+    # Bài viết nổi bật
+    featured_posts = Post.objects.filter(
         status='published'
-    ).order_by('-published_at').first()
+    ).order_by('-views_count')[:1]
+    
+    featured_post = featured_posts.first() if featured_posts else None
 
-    # Tin mới nhất
-    latest_news = News.objects.filter(
+    # Bài mới nhất
+    latest_posts = Post.objects.filter(
         status='published'
     ).order_by('-published_at')[:8]
 
-    # Tin nóng (top trending)
-    trending_news = News.objects.filter(
+    # Bài trending (top views)
+    trending_posts = Post.objects.filter(
         status='published'
-    ).order_by('-views')[:4]
-
-    # Danh mục
-    categories = Category.objects.all()
+    ).order_by('-views_count')[:4]
 
     context = {
-        'featured_news': featured_news,
-        'latest_news': latest_news,
-        'trending_news': trending_news,
-        'categories': categories,
+        **get_base_context(),
+        'featured_post': featured_post,
+        'latest_posts': latest_posts,
+        'trending_posts': trending_posts,
     }
     return render(request, 'trang_chu.html', context)
 
 
-# ==================== NEWS DETAIL VIEW ====================
-def news_detail(request, slug):
-    """Trang chi tiết tin tức"""
-    news = get_object_or_404(News, slug=slug, status='published')
+def post_detail(request, slug):
+    """Chi tiết bài viết"""
+    post = get_object_or_404(Post, slug=slug, status='published')
     
     # Tăng lượt xem
-    news.increment_views()
+    post.views_count += 1
+    post.save(update_fields=['views_count'])
 
-    # Tin tức liên quan
-    related_news = news.get_related_news(limit=4)
-
-    # Tin cùng danh mục
-    same_category = News.objects.filter(
-        category=news.category,
+    # Bài viết cùng danh mục
+    related_posts = Post.objects.filter(
+        category=post.category,
         status='published'
-    ).exclude(id=news.id)[:3]
+    ).exclude(id=post.id)[:3]
+
+    # Bình luận
+    comments = Comment.objects.filter(post=post, is_approved=True).order_by('-created_at')
+    
+    # Form bình luận
+    comment_form = None
+    if request.user.is_authenticated:
+        if request.method == 'POST' and 'comment' in request.POST:
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.post = post
+                comment.user = request.user
+                comment.save()
+                return redirect('webtintuc:post_detail', slug=post.slug)
+        else:
+            comment_form = CommentForm()
 
     context = {
-        'news': news,
-        'related_news': related_news,
-        'same_category': same_category,
-        'categories': Category.objects.all(),
+        **get_base_context(),
+        'post': post,
+        'related_posts': related_posts,
+        'comments': comments,
+        'comment_form': comment_form,
     }
     return render(request, 'chi-tiet-tin.html', context)
 
 
-# ==================== SEARCH VIEW ====================
-def search_news(request):
-    """Tìm kiếm tin tức"""
+def search_posts(request):
+    """Tìm kiếm bài viết"""
     query = request.GET.get('q', '').strip()
-    category = request.GET.get('category', '')
-
-    # Base queryset
-    news_list = News.objects.filter(status='published')
-
-    # Tìm kiếm
+    
     if query:
-        news_list = news_list.filter(
-            Q(title__icontains=query) |
-            Q(description__icontains=query) |
-            Q(content__icontains=query) |
-            Q(author__name__icontains=query)
-        )
-
-    # Lọc theo danh mục
-    if category:
-        news_list = news_list.filter(category__slug=category)
-
-    # Sắp xếp
-    news_list = news_list.order_by('-published_at')
-
-    # Phân trang
-    paginator = Paginator(news_list, 12)  # 12 tin mỗi trang
-    page_number = request.GET.get('page', 1)
-    page_obj = paginator.get_page(page_number)
-
-    categories = Category.objects.all()
+        posts = Post.objects.filter(
+            status='published',
+            title__icontains=query
+        ).order_by('-published_at')
+    else:
+        posts = []
 
     context = {
+        **get_base_context(),
         'query': query,
-        'page_obj': page_obj,
-        'categories': categories,
-        'selected_category': category,
+        'posts': posts,
     }
     return render(request, 'search_results.html', context)
 
 
-# ==================== CATEGORY VIEW ====================
-def category_news(request, slug):
-    """Hiển thị tin tức theo danh mục"""
-    category = get_object_or_404(Category, slug=slug)
+def category_posts(request, slug):
+    """Hiển thị bài theo danh mục"""
+    category = get_object_or_404(Category, slug=slug, category_type='news')
     
-    news_list = News.objects.filter(
+    posts = Post.objects.filter(
         category=category,
         status='published'
     ).order_by('-published_at')
 
-    # Phân trang
-    paginator = Paginator(news_list, 12)
-    page_number = request.GET.get('page', 1)
-    page_obj = paginator.get_page(page_number)
-
-    categories = Category.objects.all()
-
     context = {
+        **get_base_context(),
         'category': category,
-        'page_obj': page_obj,
-        'categories': categories,
+        'posts': posts,
     }
-    return render(request, 'category_news.html', context)
+    return render(request, 'category_posts.html', context)
 
 
-# ==================== AUTHOR VIEW ====================
-def author_news(request, pk):
-    """Hiển thị tin tức theo tác giả"""
-    author = get_object_or_404(Author, pk=pk)
+@login_required(login_url='webtintuc:login')
+def my_posts(request):
+    """Bài viết của tôi"""
+    posts = Post.objects.filter(author=request.user).order_by('-created_at')
     
-    news_list = author.news_articles.filter(
-        status='published'
-    ).order_by('-published_at')
-
-    # Phân trang
-    paginator = Paginator(news_list, 12)
-    page_number = request.GET.get('page', 1)
-    page_obj = paginator.get_page(page_number)
-
-    categories = Category.objects.all()
-
     context = {
-        'author': author,
-        'page_obj': page_obj,
-        'categories': categories,
+        **get_base_context(),
+        'posts': posts,
     }
-    return render(request, 'author_news.html', context)
+    return render(request, 'my_posts.html', context)
 
-
-# ==================== NEWSLETTER API ====================
-@require_POST
-def subscribe_newsletter(request):
-    """API để đăng ký nhận tin (AJAX)"""
-    try:
-        data = json.loads(request.body)
-        email = data.get('email', '').strip()
-
-        if not email:
-            return JsonResponse({
-                'success': False,
-                'message': 'Email không được để trống'
-            }, status=400)
-
-        # Kiểm tra email hợp lệ
-        from django.core.validators import validate_email
-        try:
-            validate_email(email)
-        except:
-            return JsonResponse({
-                'success': False,
-                'message': 'Email không hợp lệ'
-            }, status=400)
-
-        # Kiểm tra đã đăng ký chưa
-        subscriber, created = NewsletterSubscriber.objects.get_or_create(
-            email=email,
-            defaults={'is_active': True}
-        )
-
-        if created:
-            message = f'Cảm ơn! Bạn đã đăng ký nhận tin tức từ TinTức.News'
-        else:
-            if subscriber.is_active:
-                message = 'Email này đã được đăng ký trước đó'
-            else:
-                subscriber.is_active = True
-                subscriber.save()
-                message = 'Bạn đã được kích hoạt lại'
-
-        return JsonResponse({
-            'success': True,
-            'message': message
-        })
-
-    except json.JSONDecodeError:
-        return JsonResponse({
-            'success': False,
-            'message': 'Dữ liệu không hợp lệ'
-        }, status=400)
-
-
-# ==================== NEWS LIST CLASS VIEW ====================
-class NewsListView(ListView):
-    """Class-based view để liệt kê tin tức (có thể mở rộng)"""
-    model = News
-    template_name = 'news_list.html'
-    context_object_name = 'news_list'
-    paginate_by = 12
-
-    def get_queryset(self):
-        return News.objects.filter(
-            status='published'
-        ).order_by('-published_at')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        return context
-
-
-# ==================== NEWS DETAIL CLASS VIEW ====================
-class NewsDetailView(DetailView):
-    """Class-based view cho chi tiết tin tức"""
-    model = News
-    template_name = 'chi-tiet-tin.html'
-    slug_field = 'slug'
-    context_object_name = 'news'
-
-    def get_queryset(self):
-        return News.objects.filter(status='published')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        news = self.get_object()
-        
-        # Tăng lượt xem
-        news.increment_views()
-        
-        context['related_news'] = news.get_related_news()
-        context['categories'] = Category.objects.all()
-        return context

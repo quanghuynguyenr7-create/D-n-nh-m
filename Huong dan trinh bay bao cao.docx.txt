@@ -1,0 +1,259 @@
+﻿KHOA CNTT & KTS
+BỘ MÔN CNTT
+------
+	
+
+	
+
+HƯỚNG DẪN TRÌNH BÀY BÁO CÁO LẬP TRÌNH ỨNG DỤNG
+(Báo cáo tối thiểu 30 trang in 1 mặt)
+Báo cáo thực tập được trình bày ngắn gọn, rõ ràng, mạch lạc, không tẩy xoá, bao gồm các nội dung sau:
+I. CẤU TRÚC BÁO CÁO
+1. Trang bìa
+2. Trang bìa lót
+6. Mục lục
+7. Danh mục bảng biểu, hình vẽ
+8. Danh mục các chữ viết tắt (nếu có)
+9. Mở đầu
+- Nêu rõ lý do chọn đề tài, mục đích, phạm vi, kết cấu đề tài
+10. Nội dung
+11. Kết luận
+12. Tài liệu tham khảo
+13. Phụ lục (nếu có)
+Chú ý : 
+- Các trang bìa không đánh số trang
+- Các mục từ Thông tin chung đến Danh mục các chữ viết tắt đánh số trang bằng số La Mã (i, ii, iii…)
+- Các mục từ phần Mở đầu đánh số trang bằng số (1, 2, 3…)
+II. CÁCH TRÌNH BÀY BÁO CÁO
+- Bìa mềm, bóng kính
+- Báo cáo trình bày trên khổ giấy A4 (210x297mm), hướng thẳng (Portrait) (trừ trường hợp đặc biệt mới sử dụng hướng ngang (Landscape)). Lề trên 2cm, lề dưới: 2 cm, lề trái: 2,5 cm, lề phải: 2cm. Số trang đánh ở giữa, phía dưới mỗi trang giấy;
+- Định dạng : Font chữ : Times New Roman, cỡ chữ : 13 (trừ các đề mục, tên chương dùng các cỡ chữ lớn hơn); không dùng các kiểu chữ dạng thư pháp.
+- Giãn dòng: Khoảng cách dòng: Single line; Khoảng cách đoạn: Before: 0, After: 12pt; căn lề đều 2 bên.
+- Trong từng trang báo cáo, các nguồn lấy từ tài liệu tham khảo cần được chỉ rõ, đặt trong cặp dấu ngoặc vuông [].
+- Đánh mục lục tự động
+III. NỘI DUNG CÁC CHƯƠNG
+(Bố cục nội dung sau đây mang tính hướng dẫn, sinh viên cần trao đổi cụ thể với giáo viên hướng dẫn về bố cục của báo cáo thực tập)
+Chương 1. Tìm hiểu bài toán
+1.1. Giới thiệu bài toán
+- Lý do chọn bài toán.
+- Đề xuất các giải pháp thực hiện
+- Đánh giá tính khả thi của hệ thống
+- Lập kế hoạch thực hiện 
+1.2 Tìm hiểu yêu cầu người dùng
+- Lập kế hoạch xác định yêu cầu người dùng.
+- Tìm hiểu các quy trình nghiệp vụ: Các bước thực hiện; Nội dung thực hiện; Người thực hiện; Hồ sơ, biểu mẫu liên quan. 
+- Đánh giá nhận xét quy trình hiện tại, đề xuất cải tiến cho quy trình mới.
+Chương 2. Phân tích hệ thống và Thiết kế hệ thống
+2.1. Biểu đồ phân rã chức năng,  mô tả chức năng của website
+2.2. Biểu đồ sitemap liệt kê, mô tả các trang cần thực hiện
+* Thiết kế cơ sở dữ liệu: thiết kế các mô hình dữ liệu logic và vật lý
+* Thiết kế giả mã: giải quyết các chức năng nghiệp vụ quan trọng, phức tạp (nếu có)
+Chương 3. Xây dựng và Triển khai hệ thống
+3.1. Xây dựng giao diện và cơ sở dữ liệu
+- Mô tả kết quả xây dựng giao diện và cơ sở dữ liệu
+3.2. Xây dựng các mô- đun của hệ thống
+Phần này yêu cầu sinh viên mô tả quá trình phát triển các mô-đun chính của hệ thống, tập trung vào thực tiễn triển khai, không viết lý thuyết chung chung và không trùng với các nội dung đã trình bày ở chương 2, một số nộ dung cụ thể:
+Kết luận 
+Sinh viên mô tả ngắn gọn quá trình và kết quả làm việc của nhóm và hướng phát triển của đề tài.
+
+
+IV. TÀI LIỆU THAM KHẢO
+1. Tài liệu tham khảo được xếp riêng theo từng ngôn ngữ (Việt, Anh, Pháp...). 
+2. Số thứ tự của tài liệu tham khảo đặt trong cặp dấu ngoặc vuông [ ], ví dụ: [1], [2], [3]…
+3. Tài liệu tham khảo xếp thứ tự ABC theo họ tên tác giả. Cấu trúc gồm:
+[STT] Tên tác giả, Tên tài liệu, Nhà xuất bản, Số trang (nếu có), Năm xuất bản.
+Ví dụ:
+[1] Phan Đình Diệu, Lý thuyết về độ phức tạp tính toán, Nhà xuất bản Đại học Quốc gia Hà Nội, tr.15-25, 1999.
+ [2] R. P. Jagadeesh Chandra Bose and Wil M. P. van der Aalst, Trace Clustering Based on Conserved Patterns: Towards Achieving Better Process Models, Business Process Management Workshops, 170-181, 2009.
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CÁC TRANG MẪU
+HỌC VIỆN NGÂN HÀNG
+KHOA HỆ CÔNG NGHỆ THÔNG TIN VÀ KINH TẾ SỐ
+----------------
+
+
+
+
+
+
+
+
+BÁO CÁO THỰC TẬP CHUYÊN NGÀNH II
+<TÊN ĐỀ TÀI>
+
+
+
+
+
+
+
+
+Giảng viên hướng dẫn:
+Nhóm sinh viên thực hiện:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HÀ NỘI – 2019
+THÔNG TIN CHUNG
+
+
+Tên đề tài:        
+Đơn vị thực tập:        
+Ngày bắt đầu:        Ngày kết thúc:        
+Họ và tên sinh viên:        Mã sinh viên:        
+Người hướng dẫn:        
+Ngày nộp báo cáo:        
+________________
+NHẬN XÉT CỦA CÁN BỘ HƯỚNG DẪN
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+NHẬN XÉT CỦA GIÁO VIÊN HƯỚNG DẪN
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+________________
+LỜI CAM ĐOAN
+Nhóm chúng em xin cam đoan kết quả đạt được trong báo cáo là sản phẩm nghiên cứu, tìm hiểu của chúng em. Trong toàn bộ nội dung của báo cáo, những điều được trình bày hoặc là của nhóm chúng em tìn hiểu hoặc là được tổng hợp từ nhiều nguồn tài liệu. Tất cả các tài liệu tham khảo đều có xuất xứ rõ ràng và được trích dẫn hợp pháp.
+Chúng em xin hoàn chịu trách nhiệm và chịu mọi hình thức kỷ luật theo quy định cho lời cam đoan của mình.
+
+
+
+
+	NHÓM SINH VIÊN THỰC HIỆN
+<Họ và tên>
+	
+
+
+
+
+
+________________
+LỜI CẢM ƠN
+________________
+MỤC LỤC
+DANH MỤC BẢNG BIỂU        vii
+DANH MỤC HÌNH VẼ, ĐỒ THỊ        viii
+DANH MỤC CÁC CHỮ  VIẾT TẮT        ix
+MỞ ĐẦU        1
+Chương 1. TÊN CHƯƠNG        2
+1.1         2
+1.1.1         2
+1.1.2         4
+1.2        6
+Chương 2.         10
+2.1        10
+2.1.1        10
+2.1.2        12
+2.2        14
+KẾT LUẬN        40
+TÀI LIỆU THAM KHẢO        41
+PHỤ LỤC        43
+
+
+________________
+DANH MỤC BẢNG BIỂU
+Bảng 1: Tên bảng.        5
+Bảng 2: Tên bảng        10
+________________
+DANH MỤC HÌNH VẼ, ĐỒ THỊ
+Hình 1: Tên hình.        7
+Hình 2: Tên hình        14
+________________
+DANH MỤC CÁC CHỮ  VIẾT TẮT
+STT
+	Chữ viết tắt
+	Ý nghĩa
+	1
+	
+
+	
+
+	
+
+                                          NỘI DUNG CÁC CHƯƠNG
+________________
+PHỤ LỤC

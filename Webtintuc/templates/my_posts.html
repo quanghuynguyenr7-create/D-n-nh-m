@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}My Posts{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>My Posts</h2>
+
+    {% if posts %}
+    <table class="posts-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Views</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr>
+                <td>
+                    <a href="{% url 'webtintuc:post_detail' post.slug %}">{{ post.title }}</a>
+                </td>
+                <td>{{ post.category.name }}</td>
+                <td>
+                    <span class="status-badge {% if post.status == 'published' %}status-published{% else %}status-draft{% endif %}">
+                        {{ post.get_status_display }}
+                    </span>
+                </td>
+                <td>{{ post.views_count }}</td>
+                <td>{{ post.created_at|date:"d/m/Y" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="no-results">
+        <p>You haven't posted anything yet.</p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .posts-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: white;
+    }
+
+    .posts-table th {
+        background: #f0f0f0;
+        padding: 12px;
+        text-align: left;
+        font-weight: bold;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .posts-table td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .posts-table tr:hover {
+        background: #f9f9f9;
+    }
+
+    .posts-table a {
+        color: #667eea;
+        text-decoration: none;
+    }
+
+    .posts-table a:hover {
+        text-decoration: underline;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .status-published {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .status-draft {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 40px;
+        color: #999;
+    }
+</style>
+{% endblock %}

@@ -1,46 +1,28 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.utils import timezone
 
 # ==================== CATEGORY MODEL ====================
 class Category(models.Model):
-    """Danh mục tin tức"""
-    name = models.CharField(
-        max_length=100,
-        unique=True,
-        verbose_name="Tên danh mục"
+    """Danh mục tin tức hoặc blog"""
+    CATEGORY_TYPES = (
+        ('news', 'Tin Tức'),
+        ('blog', 'Blog'),
     )
-    slug = models.SlugField(
-        unique=True,
-        verbose_name="URL slug",
-        help_text="Sẽ được tạo tự động từ tên"
+    
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(unique=True)
+    description = models.TextField(blank=True, null=True)
+    category_type = models.CharField(
+        max_length=20,
+        choices=CATEGORY_TYPES,
+        default='news'
     )
-    description = models.TextField(
-        blank=True,
-        verbose_name="Mô tả"
-    )
-    icon = models.CharField(
-        max_length=50,
-        default="fas fa-newspaper",
-        verbose_name="Icon (Font Awesome class)"
-    )
-    color = models.CharField(
-        max_length=7,
-        default="#667eea",
-        verbose_name="Màu sắc"
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Ngày tạo"
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name="Ngày cập nhật"
-    )
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    
     class Meta:
-        verbose_name = "Danh mục"
-        verbose_name_plural = "Danh mục"
+        verbose_name_plural = "Categories"
         ordering = ['name']
 
     def __str__(self):
@@ -52,125 +34,62 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
 
-# ==================== AUTHOR MODEL ====================
-class Author(models.Model):
-    """Tác giả bài viết"""
-    name = models.CharField(
-        max_length=100,
-        verbose_name="Tên tác giả"
-    )
-    email = models.EmailField(
-        unique=True,
-        verbose_name="Email"
-    )
-    bio = models.TextField(
-        blank=True,
-        verbose_name="Tiểu sử"
-    )
-    avatar = models.ImageField(
-        upload_to='avatars/',
-        blank=True,
-        null=True,
-        verbose_name="Ảnh đại diện"
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Ngày tạo"
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name="Ngày cập nhật"
-    )
-
-    class Meta:
-        verbose_name = "Tác giả"
-        verbose_name_plural = "Tác giả"
-        ordering = ['name']
-
+# ==================== TAG MODEL ====================
+class Tag(models.Model):
+    """Thẻ từ khóa gắn với bài viết"""
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(unique=True)
+    
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
-# ==================== NEWS MODEL ====================
-class News(models.Model):
-    """Tin tức / Bài viết"""
+# ==================== POST MODEL ====================
+class Post(models.Model):
+    """Bài viết (tin tức hoặc blog)"""
     STATUS_CHOICES = (
-        ('draft', 'Bản nháp'),
-        ('published', 'Đã xuất bản'),
-        ('archived', 'Đã lưu trữ'),
+        ('draft', 'Nháp'),
+        ('published', 'Đã đăng'),
     )
-
-    title = models.CharField(
-        max_length=250,
-        verbose_name="Tiêu đề"
+    POST_TYPES = (
+        ('news', 'Tin Tức'),
+        ('blog', 'Blog'),
     )
-    slug = models.SlugField(
-        unique=True,
-        verbose_name="URL slug",
-        help_text="Sẽ được tạo tự động từ tiêu đề"
-    )
-    category = models.ForeignKey(
-        Category,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='news_items',
-        verbose_name="Danh mục"
-    )
-    author = models.ForeignKey(
-        Author,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='news_articles',
-        verbose_name="Tác giả"
-    )
-    featured_image = models.ImageField(
-        upload_to='news_images/',
-        verbose_name="Hình ảnh nổi bật"
-    )
-    description = models.TextField(
-        verbose_name="Mô tả ngắn",
-        help_text="Mô tả ngắn gọn về bài viết (khoảng 200 từ)"
-    )
-    content = models.TextField(
-        verbose_name="Nội dung bài viết"
-    )
-    is_featured = models.BooleanField(
-        default=False,
-        verbose_name="Tin nổi bật"
-    )
+    
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    content = models.TextField()
+    summary = models.TextField(help_text="Tóm tắt ngắn gọn bài viết")
+    
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    tags = models.ManyToManyField(Tag, blank=True)
+    
+    views_count = models.IntegerField(default=0)
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
-        default='draft',
-        verbose_name="Trạng thái"
+        default='draft'
     )
-    views = models.IntegerField(
-        default=0,
-        verbose_name="Lượt xem"
+    post_type = models.CharField(
+        max_length=20,
+        choices=POST_TYPES,
+        default='news'
     )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Ngày tạo"
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name="Ngày cập nhật"
-    )
-    published_at = models.DateTimeField(
-        null=True,
-        blank=True,
-        verbose_name="Ngày xuất bản"
-    )
-
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    published_at = models.DateTimeField(null=True, blank=True)
+    
     class Meta:
-        verbose_name = "Tin tức"
-        verbose_name_plural = "Tin tức"
         ordering = ['-published_at', '-created_at']
-        indexes = [
-            models.Index(fields=['-published_at']),
-            models.Index(fields=['category', '-published_at']),
-            models.Index(fields=['is_featured', '-published_at']),
-        ]
+        verbose_name = "Bài Viết"
+        verbose_name_plural = "Bài Viết"
 
     def __str__(self):
         return self.title
@@ -182,51 +101,45 @@ class News(models.Model):
             self.published_at = timezone.now()
         super().save(*args, **kwargs)
 
-    def increment_views(self):
-        """Tăng lượt xem"""
-        self.views += 1
-        self.save(update_fields=['views'])
 
-    def get_related_news(self, limit=5):
-        """Lấy các tin tức liên quan"""
-        return News.objects.filter(
-            category=self.category,
-            status='published'
-        ).exclude(id=self.id)[:limit]
-
-    @property
-    def time_since_published(self):
-        """Thời gian từ lúc xuất bản"""
-        if self.published_at:
-            from django.utils.timesince import timesince
-            return f"{timesince(self.published_at)} trước"
-        return "Chưa xuất bản"
-
-
-# ==================== NEWSLETTER MODEL ====================
-class NewsletterSubscriber(models.Model):
-    """Người đăng ký nhận tin tức"""
-    email = models.EmailField(
-        unique=True,
-        verbose_name="Email"
+# ==================== COMMENT MODEL ====================
+class Comment(models.Model):
+    """Bình luận trên bài viết"""
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    is_approved = models.BooleanField(default=False)
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='replies'
     )
-    is_active = models.BooleanField(
-        default=True,
-        verbose_name="Đã kích hoạt"
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Ngày đăng ký"
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name="Ngày cập nhật"
-    )
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    
     class Meta:
-        verbose_name = "Người đăng ký"
-        verbose_name_plural = "Người đăng ký"
         ordering = ['-created_at']
+        verbose_name = "Bình Luận"
+        verbose_name_plural = "Bình Luận"
 
     def __str__(self):
-        return self.email
+        return f"Bình luận của {self.user.username} trên {self.post.title}"
+
+
+# ==================== ADVERTISEMENT MODEL ====================
+class Advertisement(models.Model):
+    """Quảng cáo / Banner"""
+    POSITION_CHOICES = (
+        ('header', 'Header'),
+        ('sidebar', 'Sidebar'),
+        ('footer', 'Footer'),
+    )
+    
+    title = models.CharField(max_length=100)
+    banner_url = models.URLField()
+    position = models.CharField(max_length=20, choices=POSITION_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.title

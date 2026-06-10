@@ -1,0 +1,453 @@
+﻿CHƯƠNG 2. PHÂN TÍCH HỆ THỐNG VÀ THIẾT KẾ HỆ THỐNG
+2.1. Biểu đồ phân rã chức năng và mô tả chức năng của website
+  
+
+  
+
+
+
+Website Tin tức và Blog được phát triển nhằm mục đích cung cấp nội dung thông tin điện tử, cập nhật tin tức đa lĩnh vực và không gian chia sẻ bài viết kiến thức, tương tác chuyên nghiệp. Hệ thống phân quyền rõ ràng thành hai nhóm chức năng chính: Dành cho Khách truy cập (Độc giả công khai) và Dành cho Admin (Quản trị viên)
+2.1.1. Các chức năng dành cho Người truy cập (Khách)
+Đối với độc giả vãng lai hoặc thành viên đại chúng, hệ thống cung cấp các khối tính năng giúp họ tìm kiếm thông tin, khai thác dữ liệu và tương tác hai chiều với bài viết:        
+* Quản lý tài khoản độc giả (Đăng ký / Đăng nhập / Đăng xuất):
+   * Đăng ký tài khoản: Cho phép độc giả vãng lai tạo tài khoản thành viên mới bằng cách nhập các thông tin cơ bản (Họ tên, Email, Mật khẩu). Hệ thống có cơ chế kiểm tra định dạng email và tính hợp lệ của mật khẩu.
+   * Đăng nhập / Đăng xuất: Giúp thành viên truy cập hoặc thoát khỏi hệ thống để mở khóa các quyền lợi tương tác nâng cao.
+   * Cập nhật hồ sơ: Cho phép thành viên chỉnh sửa và quản lý thông tin cá nhân của mình. 
+*  Tra cứu nội dung:
+   * Xem trang chủ: Hiển thị giao diện tổng quan với luồng tin tức và các bài viết mới nhất.
+   * Duyệt theo danh mục: Khai thác và xem các bài viết được phân loại rõ ràng theo từng chủ đề chuyên biệt.
+   * Xem chi tiết bài viết: Hiển thị đầy đủ nội dung bài viết, thông tin liên quan và danh sách bài viết gợi ý.
+   * Tìm kiếm bài viết: Cho phép người dùng tìm kiếm nhanh các bài viết thông qua từ khóa tự do.
+   * Lọc theo thẻ / tag: Hỗ trợ tìm kiếm và liên kết các bài viết có cùng thẻ phân loại.
+* Tương tác cộng đồng:
+   * Đối với khách vãng lai: Chỉ được phép đọc bình luận của người khác hoặc hệ thống yêu cầu đăng nhập trước khi gửi ý kiến.
+   * Đối với thành viên đã đăng nhập:
+o   Viết bình luận: Cho phép độc giả (hoặc thành viên sau khi đăng nhập) gửi ý kiến, thảo luận dưới bài viết.
+o   Thả cảm xúc (react): Người dùng có thể bày tỏ thái độ, cảm xúc đối với nội dung bài viết.
+o   Chia sẻ mạng xã hội: Hỗ trợ chia sẻ nhanh bài viết lên các nền tảng mạng xã hội phổ biến như (Facebook, Reddit,...).
+* Đăng ký nhận bản tin:
+   * Gửi email đăng ký: Người dùng điền và gửi email thông qua biểu mẫu để đăng ký nhận tin.
+   * Nhận thông báo bài mới: Hệ thống tự động gửi thông tin cập nhật về các bài viết mới hoặc bản tin định kỳ qua email đã đăng ký.
+ 
+
+
+2.1.2. Các chức năng dành cho Quản trị hệ thống (Admin)
+Chủ sở hữu website và đội ngũ biên tập viên được cấp tài khoản quản trị để kiểm soát toàn diện tài nguyên hiển thị thông qua phân hệ Dashboard Backend (hệ thống quản trị nội bộ):
+* Quản lý nội dung:
+   * Soạn thảo bài viết mới: Tạo mới bài viết với trình soạn thảo văn bản.
+   * Sửa / cập nhật bài viết: Chỉnh sửa nội dung, thông tin các bài viết hiện có.
+   * Quản lý trạng thái bài: Thiết lập trạng thái xuất bản, lưu nháp hoặc gỡ bỏ bài viết.
+   * Quản lý danh mục: Thêm, sửa, xóa và phân loại các danh mục tin tức.
+   * Quản lý thẻ (tags): Khởi tạo và quản lý hệ thống từ khóa gắn liền với các bài viết.
+* Quản lý tài khoản và phân quyền:
+   * Xem danh sách thành viên: Theo dõi và quản lý toàn bộ danh sách người dùng trên hệ thống.
+   * Phân quyền vai trò: Cấp phát, điều chỉnh quyền hạn và vai trò cho từng tài khoản.
+   * Khoá / kích hoạt tài khoản: Quản lý trạng thái hoạt động của tài khoản người dùng (mở khóa hoặc tạm khóa khi vi phạm).
+* Quản lý hệ thống:
+   * Quản lý giao diện: Thay đổi, cấu hình và tối ưu hóa giao diện hiển thị của website.
+   * Quản lý quảng cáo (Ads): Thiết lập, điều phối và hiển thị các biểu ngữ, vị trí quảng cáo trên trang.
+   *  Thống kê và báo cáo: Theo dõi số liệu lưu lượng truy cập, tương tác và hiệu suất của website.
+   *  Quản lý newsletter: Kiểm soát danh sách và hệ thống gửi thư điện tử, bản tin định kỳ cho độc giả.
+ 
+* Kiểm duyệt bình luận:
+   * Duyệt / ẩn bình luận: Phê duyệt các bình luận hợp lệ hoặc chủ động ẩn các nội dung nhạy cảm.
+   * Xóa bình luận vi phạm: Loại bỏ hoàn toàn các bình luận chứa ngôn từ không phù hợp hoặc vi phạm tiêu chuẩn cộng đồng.
+   * Lọc spam tự động: Kích hoạt hệ thống tự động nhận diện và chặn các bình luận rác, quảng cáo bẩn.
+
+
+2.2. Biểu đồ sitemap liệt kê và mô tả các trang cần thực hiện
+  
+
+  
+
+Hệ thống được cấu trúc hóa sơ đồ trang (Sitemap) rõ ràng để phân định trải nghiệm người dùng Front-end và khu vực giao diện quản trị BackOffice:
+2.2.1. Khu vực Người dùng Front-end (Khách truy cập)
+A. THÀNH PHẦN CHUNG (HEADER & FOOTER)
+* Thanh điều hướng (HEADER): Là điểm neo cố định ở đầu trang, bao gồm:
+   * LOGO: Nhận diện thương hiệu của Website Tin tức & Blog.
+   * ĐỊA ĐIỂM / THỜI TIẾT: Hiển thị thông tin thời gian thực tiện ích cho độc giả.
+   * Mới nhất / Xem nhiều / Tin nóng: Phím tắt truy cập nhanh các luồng tin nổi bật.
+   * Thanh Tìm kiếm: Khung nhập từ khóa để tra cứu bài viết tức thời.
+   * Đăng Nhập / Đăng Ký: Khu vực điều hướng quản lý tài khoản người dùng.
+* Chân trang (FOOTER): Nơi phân bổ thông tin pháp lý và sơ đồ trang mở rộng, bao gồm:
+   * Trang Chủ | Danh mục
+   * Mới nhất | Xem nhiều | Tin nóng
+   * Điều khoản sử dụng | Chính sách bảo mật
+   * Hỗ trợ / FAQ | Hướng dẫn / Quảng cáo
+   * Các trang mạng xã hội | Liên hệ
+B. CẤU TRÚC CHỨC NĂNG TRANG CHỦ VÀ CÁC TRANG CON
+* Trang chủ: Điểm điều hướng trung tâm kết nối toàn bộ hệ thống sitemap theo 7 nhánh chức năng chính:
+* Phân hệ TIN TỨC:
+   * Danh sách tin: Trang hiển thị danh sách các bài báo, bài tin tức chung thuộc một danh mục.
+   * Chi tiết tin: Giao diện đọc nội dung bài viết tin tức chi tiết.
+   * Tìm theo danh mục: Bộ lọc hiển thị tin tức riêng biệt theo từng chuyên mục.
+   * Tin nổi bật: Khối hiển thị các sự kiện tiêu điểm, tin tức hot trong ngày.
+* Phân hệ BLOG:
+   * Danh sách blog: Hiển thị danh sách các bài viết thuộc tuyến nội dung blog cá nhân.
+   * Chi tiết blog: Giao diện đọc nội dung bài blog chi tiết.
+   * Blog theo danh mục: Bộ lọc gom nhóm bài viết blog theo các chủ đề chủ đạo.
+   * Bài viết của tôi: Khu vực quản lý/hiển thị riêng các bài viết do chính người dùng đó đăng tải.
+* Phân hệ DANH MỤC:
+   * Danh mục tin tức: Trang tổng hợp và phân loại các chủ đề tin tức (Kinh tế, Xã hội...).
+   * Danh mục Blog: Trang phân loại các chủ đề viết blog, chia sẻ kinh nghiệm.
+* Phân hệ TÌM KIẾM:
+   * Kết quả tìm kiếm: Liệt kê danh sách bài viết chứa từ khóa truy vấn.
+* Phân hệ BÌNH LUẬN:
+   * Bình luận, phản hồi bài viết: Khung tương tác cho phép gửi ý kiến và phản hồi (reply) qua lại.
+* Phân hệ LIÊN HỆ:
+   * Gửi liên hệ: Biểu mẫu gửi ý kiến đóng góp, phản hồi tới ban quản trị.
+* Phân hệ ĐĂNG NHẬP / ĐĂNG KÝ:
+   * Đăng nhập: Form điền thông tin tài khoản truy cập hệ thống.
+   * Đăng ký: Form tạo tài khoản thành viên mới cho độc giả.
+   * Quên mật khẩu: Quy trình hỗ trợ xác thực và cấp lại mật khẩu qua Email.
+   * Đăng xuất: Cơ chế thoát phiên làm việc an toàn. 
+2.2.2. Khu vực giao diện quản trị BackOffice  (Admin)
+* Bảng điều khiển DashBoard: Trang thống kê tổng quan các chỉ số toàn hệ thống bao gồm: Bài viết, tin tức, người dùng, lượt xem.
+* Trang quản lý tin tức:
+   * Danh sách tin tức: Liệt kê toàn bộ các bài viết thuộc tuyến tin tức.
+   * Thêm tin tức / Chỉnh sửa tin / Xóa tin: Các form chức năng CRUD nội dung tin tức.
+   * Quản lý chuyên mục: Thêm, sửa, xóa các chuyên mục của tin tức.
+   * Quản lý tag: Định biên hệ thống thẻ từ khóa gắn liền với tin tức.
+   * Quản lý bình luận: Phê duyệt, ẩn hoặc xóa bình luận của phân hệ tin tức.
+* Trang quản lý BLOG:
+   * Danh sách bài viết: Liệt kê toàn bộ các bài viết thuộc tuyến nội dung blog.
+   * Thêm bài viết / Chỉnh sửa bài viết / Xóa bài: Các form chức năng CRUD nội dung blog.
+   * Quản lý chuyên mục: Quản lý các danh mục phân loại blog.
+   * Quản lý tag: Khởi tạo hệ thống thẻ từ khóa gắn liền với blog.
+   * Quản lý bình luận: Phê duyệt hoặc gỡ bỏ các phản hồi dưới tuyến bài blog.
+* Trang quản lý người dùng:
+   * Danh sách người dùng: Bảng theo dõi toàn bộ tài khoản trên hệ thống.
+   * Thêm user / Chỉnh sửa user: Các form tạo mới hoặc cập nhật thông tin tài khoản thành viên.
+   * Phân quyền: Cấp phát vai trò, quyền hạn cho từng nhóm tài khoản (Admin, Biên tập viên, Độc giả).
+* Trang quản lý giao diện:
+   * Menu & danh mục: Cấu hình thanh điều hướng hệ thống.
+   * Banner / Quảng cáo: Thiết lập và phân bổ các vị trí quảng cáo trên website.
+   * Cấu hình header / Cấu hình footer: Thay đổi thông tin, giao diện vùng đầu trang và cuối trang.
+   * Cài đặt website: Thiết lập các thông số cấu hình hệ thống chung.
+* Trang Thống kê và báo cáo:
+   * Lượt xem: Báo cáo biểu đồ lượng truy cập (Traffic).
+   * Tin tức / Blog: Thống kê số lượng và hiệu suất tương tác của bài viết.
+   * Người dùng: Thống kê lượng tài khoản đăng ký mới.
+   * Bình luận: Báo cáo số lượng tương tá    c thảo luận.
+   * Báo cáo khác...: Các tùy biến kết xuất dữ liệu báo cáo chuyên sâu khác.
+2.3. Thiết kế cơ sở dữ liệu
+2.3.1. Thiết kế mức Logic - Website Tin tức & Blog
+* User (user_id, username, password, full_name, email, role_id, reset_token, created_at)
+* Category (category_id, name, slug, description, category_type, created_at) 
+* Post (post_id, title, slug, content, summary, thumbnail, views_count, status, post_type, created_at, updated_at, category_id, user_id) 
+* Tag (tag_id, name, slug)
+* Post_Tag (*post_id*, *tag_id*)
+* Comment (comment_id, content, is_approved, parent_id, created_at, post_id, user_id) 
+* Advertisement (ad_id, title, banner_url, position, created_at) 
+2.3.2. Thiết kế mức vật lý - Website Tin tức & Blog
+2.3.2.1. Bảng USER (Tài khoản độc giả thành viên) 
+Lưu trữ thông tin định danh của độc giả đăng ký tài khoản trên website
+
+
+Thuộc tính
+	Kiểu dữ liệu
+	Ràng buộc
+	Giải thích
+	user_id
+	BIGINT
+	PRIMARY KEY, IDENTITY(1,1)
+	Khóa chính, mã định danh duy nhất cho mỗi người dùng.
+	username
+	VARCHAR(50)
+	NOT NULL, UNIQUE
+	Tên đăng nhập của thành viên.
+	password
+	VARCHAR(255)
+	NOT NULL
+	Mật khẩu tài khoản (đã mã hóa).
+	full_name
+	VARCHAR(100)
+	NOT NULL
+	Họ và tên đầy đủ của người dùng.
+	email
+	VARCHAR(100)
+	NOT NULL, UNIQUE
+	Địa chỉ email đăng ký/nhận thông báo và khôi phục mật khẩu.
+	role
+	VARCHAR(20)
+	NOT NULL, DEFAULT 'User'
+	Phân quyền tài khoản: 'Admin', 'Editor', 'User'.
+	reset_token
+	VARCHAR(255)
+	NULL
+	Mã token phục vụ quy trình Quên mật khẩu.
+	created_at
+	DATETIME
+	NOT NULL, DEFAULT GETDATE()
+	Thời gian tài khoản được tạo lập trên hệ thống.
+	2.3.2.2. Bảng CATEGORY (Danh mục tin tức)
+Lưu trữ thông tin phân loại các chủ đề tin tức trên website.
+
+
+Thuộc tính
+	Kiểu dữ liệu
+	Ràng buộc
+	Giải thích
+	category_id
+	BIGINT
+	PRIMARY KEY, IDENTITY(1,1)
+	Khóa chính, định danh duy nhất của danh mục.
+	name
+	VARCHAR(100)
+	NOT NULL, UNIQUE
+	Tên danh mục hiển thị (Ví dụ: Kinh tế, Đời sống).
+	slug
+	VARCHAR(100)
+	NOT NULL, UNIQUE
+	Đường dẫn tĩnh thân thiện phục vụ SEO.
+	description
+	VARCHAR(250)
+	NULL
+	Mô tả ngắn về danh mục nội dung.
+	category_type
+	VARCHAR(20)
+	NOT NULL, DEFAULT 'News'
+	Phân loại tuyến mục: 'News' (Tin tức) hoặc 'Blog'.
+	created_at
+	DATETIME
+	NOT NULL, DEFAULT GETDATE()
+	Thời điểm khởi tạo danh mục.
+	
+
+2.3.2.3. Bảng POST (Bài viết / Tin tức)
+Lưu trữ toàn bộ nội dung các bài viết, bài báo, bài blog được biên tập.
+
+
+Thuộc tính
+	Kiểu dữ liệu
+	Ràng buộc
+	Giải thích
+	post_id
+	BIGINT
+	PRIMARY KEY, IDENTITY(1,1)
+	Khóa chính, mã định danh bài viết.
+	title
+	VARCHAR(255)
+	NOT NULL
+	Tiêu đề bài báo tin tức hoặc bài blog.
+	slug
+	VARCHAR(255)
+	NOT NULL, UNIQUE
+	Đường dẫn tĩnh phục vụ tối ưu SEO cho bài viết.
+	summary
+	VARCHAR(500)
+	NOT NULL
+	Đoạn mở đầu tóm tắt nội dung bài viết.
+	content
+	LONGTEXT
+	NOT NULL
+	Nội dung chi tiết bài viết, lưu trữ dạng định dạng HTML.
+	thumbnail
+	VARCHAR(255)
+	NULL
+	Đường dẫn lưu trữ ảnh đại diện bài viết trên server.
+	views_count
+	INT
+	NOT NULL, DEFAULT 0
+	Số lượt xem bài viết (Phục vụ thống kê và khối Xem nhiều).
+	status
+	VARCHAR(20)
+	NOT NULL, DEFAULT 'Draft'
+	Trạng thái bài viết: 'Draft' (Nháp) hoặc 'Published' (Xuất bản).
+	post_type
+	VARCHAR(20)
+	NOT NULL, DEFAULT 'News'
+	Phân loại bài viết trên trang: 'News' (Tin tức) hoặc 'Blog'.
+	category_id
+	BIGINT
+	FOREIGN KEY REFERENCES CATEGORY
+	Khóa ngoại liên kết tới bảng danh mục phân loại.
+	user_id
+	BIGINT
+	FOREIGN KEY REFERENCES USER
+	Khóa ngoại liên kết với tác giả đăng (Xác định "Bài viết của tôi").
+	created_at
+	DATETIME
+	NOT NULL, DEFAULT GETDATE()
+	Ngày giờ tạo bài viết (Xác định khối Mới nhất/Tin nóng).
+	updated_at
+	DATETIME
+	NOT NULL, DEFAULT GETDATE()
+	Thời gian cập nhật chỉnh sửa bài viết lần cuối.
+	
+
+2.3.2.4. Bảng TAG (Thẻ từ khóa)
+Lưu trữ các thẻ hashtag tự do phục vụ gom nhóm luồng tin.
+Thuộc tính
+	Kiểu dữ liệu
+	Ràng buộc
+	Giải thích
+	tag_id
+	BIGINT
+	PRIMARY KEY, IDENTITY(1,1)
+	Khóa chính, định danh thẻ.
+	name
+	VARCHAR(50)
+	NOT NULL, UNIQUE
+	Tên thẻ từ khóa (Ví dụ: #Fintech, #Banking).
+	slug
+	VARCHAR(50)
+	NOT NULL, UNIQUE
+	Đường dẫn tĩnh của thẻ.
+	2.3.2.5. Bảng POST_TAG (Bảng trung gian mối quan hệ Nhiều - Nhiều)
+Liên kết các bài viết với các thẻ từ khóa tương ứng.
+Thuộc tính
+	Kiểu dữ liệu
+	Ràng buộc
+	Giải thích
+	post_id
+	BIGINT
+	PRIMARY KEY, FOREIGN KEY
+	Thành phần khóa chính, liên kết bảng POST.
+	tag_id
+	BIGINT
+	PRIMARY KEY, FOREIGN KEY
+	Thành phần khóa chính, liên kết bảng TAG.
+	2.3.2.6. Bảng COMMENT (Bình luận độc giả)
+Lưu trữ ý kiến tương tác của người xem dưới mỗi luồng tin tức.
+
+
+Thuộc tính
+	Kiểu dữ liệu
+	Ràng buộc
+	Giải thích
+	comment_id
+	BIGINT
+	PRIMARY KEY, IDENTITY(1,1)
+	Khóa chính, mã định danh bình luận.
+	post_id
+	BIGINT
+	FOREIGN KEY REFERENCES POST
+	Khóa ngoại, xác định bình luận thuộc bài viết nào.
+	user_id
+	BIGINT
+	FOREIGN KEY REFERENCES USER
+	Khóa ngoại, xác định thành viên viết bình luận.
+	content
+	TEXT
+	NOT NULL
+	Nội dung văn bản bình luận, tương tác.
+	parent_id
+	BIGINT
+	NULL
+	Mã ID của bình luận cha (Dùng cho tính năng Phản hồi bình luận).
+	is_approved
+	BIT
+	NOT NULL, DEFAULT 0
+	Trạng thái duyệt: 0 (Chờ duyệt), 1 (Đã duyệt hiển thị).
+	created_at
+	DATETIME
+	NOT NULL, DEFAULT GETDATE()
+	Thời điểm gửi bình luận lên hệ thống.
+	
+
+2.3.2.7. Bảng ADVERTISEMENT (Quản lý Banner / Quảng cáo giao diện)
+Lưu trữ danh sách danh tính email đăng ký nhận thông báo bài viết mới tự động.
+
+
+Thuộc tính
+	Kiểu dữ liệu
+	Ràng buộc
+	Giải thích
+	ad_id
+	BIGINT
+	PRIMARY KEY, IDENTITY(1,1)
+	Khóa chính, định danh quảng cáo.
+	title
+	VARCHAR(150)
+	NOT NULL
+	Tên chiến dịch / Đơn vị đặt quảng cáo.
+	banner_url
+	VARCHAR(255)
+	NOT NULL
+	Đường dẫn lưu trữ hình ảnh banner quảng cáo.
+	position
+	VARCHAR(50)
+	NOT NULL
+	Vị trí hiển thị (Ví dụ: 'Sidebar', 'Header_Banner', 'Footer_Banner').
+	created_at
+	DATETIME
+	NOT NULL, DEFAULT GETDATE()
+	Thời gian cấu hình quảng cáo lên hệ thống.
+	
+
+2.3.3. Thiết kế giả mã 
+* Nghiệp vụ 1: Kiểm duyệt tiêu đề bài viết tránh trùng lặp khi thêm mới hoặc chỉnh sửa
+* Code:
+  
+
+* Thiết kế giả mã:
+Hàm clean_title:
+    Lấy giá trị tiêu đề 'title' từ dữ liệu người dùng nhập vào form
+    Chuyển đổi tiêu đề thành chuỗi đường dẫn không dấu 'slug'
+    Tìm tất cả bài viết trong cơ sở dữ liệu có 'slug' trùng khớp
+    
+    Nếu form đang ở chế độ chỉnh sửa (bài viết đã có khóa chính instance.pk):
+        Loại bỏ bài viết hiện tại ra khỏi danh sách kiểm tra trùng lặp
+        
+    Nếu tìm thấy bất kỳ bài viết nào khác bị trùng đường dẫn/tiêu đề:
+        Báo lỗi "Tiêu đề bài viết này đã tồn tại hoặc trùng đường dẫn tĩnh hệ thống."
+        
+    Trả về giá trị 'title' hợp lệ
+
+
+* Nghiệp vụ 2: Lọc và Tìm kiếm Bài viết (Áp dụng cho cả Tin tức và Blog)
+* Code:
+  
+
+* Thiết kế giả mã:
+Hàm post_search_and_filter(nhận request):
+    Lấy giá trị tìm kiếm 'search' từ request (nếu có)
+    Lấy đường dẫn tĩnh danh mục 'category' từ request (nếu có)
+    Lấy phân loại bài viết 'type' từ request (mặc định là 'News')
+    
+    Lấy tất cả các bài viết từ cơ sở dữ liệu có trạng thái là 'Published' và đúng phân loại 'type'
+    
+    Nếu có giá trị tìm kiếm:
+        Lọc danh sách bài viết có tiêu đề, tóm tắt hoặc nội dung chứa từ khóa tìm kiếm
+    Nếu có phân loại danh mục:
+        Lọc danh sách bài viết theo đúng danh mục đã chọn
+        
+    Lấy danh sách các danh mục thuộc loại tuyến bài tương ứng (News hoặc Blog)
+    Trả về trang search_results.html cùng với các biến:
+        - posts: danh sách bài viết đã được lọc
+        - categories: danh sách danh mục bộ lọc
+        - search_query: từ khóa tìm kiếm hiện tại
+        - selected_category: danh mục đang được chọn
+        - post_type: phân loại bài viết hiện tại
+
+
+* Nghiệp vụ 3: Tự động nhận diện và Lọc Spam bình luận (Hệ thống kiểm duyệt tự động)
+* Code:
+  
+
+* Thiết kế giả mã:
+Hàm clean_comment_content:
+    Lấy nội dung văn bản bình luận 'content' từ biểu mẫu nhập liệu
+    Định nghĩa một danh sách các từ khóa cấm ('blacklisted_words') chứa mã spam hoặc từ ngữ nhạy cảm
+    Chuyển đổi toàn bộ nội dung bình luận sang dạng chữ thường
+    
+    Duyệt qua từng từ khóa trong danh sách cấm:
+        Nếu từ khóa cấm xuất hiện trong nội dung bình luận:
+            Báo lỗi "Bình luận chứa ngôn từ không phù hợp hoặc quảng cáo spam."
+            
+    Trả về nội dung 'content' an toàn, hợp lệ để hệ thống lưu trữ/chờ duyệt
+
+
+
+
+
+
+
+
+
+
+
+
+CHƯƠNG 3: XÂY DỰNG VÀ TRIỂN KHAI HỆ THỐNG
+3.1 Xây dựng giao diện và cơ sở dữ liệu

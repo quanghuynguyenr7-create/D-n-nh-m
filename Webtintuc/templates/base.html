@@ -4,165 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}TinTức.News{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/trang_chu.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    {% block extra_css %}{% endblock %}
-    <style>
-        .container-main {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-    </style>
+    <title>{% block title %}News Website{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <div class="container-main">
+    <div class="wrapper">
         <!-- HEADER -->
-        <div class="header">
+        <header>
             <div class="header-top">
-                <a href="{% url 'webtintuc:index' %}" class="logo">
-                    <i class="fas fa-newspaper"></i> TinTức.News
-                </a>
-                <span class="divider"></span>
-                <div id="clock" class="clock"></div>
-                <span class="divider"></span>
-                <div class="header-nav">
-                    <a href="{% url 'webtintuc:index' %}" class="link-text">Mới nhất</a>
-                </div>
-                <span class="divider"></span>
-                <div class="header-nav">
-                    <a href="#" class="link-text">Xem nhiều</a>
-                </div>
-                <span class="divider"></span>
-                <div class="header-nav">
-                    <a href="#" class="link-text">Tin nóng</a>
-                </div>
-                
-                <div class="search-box">
-                    <form class="search-form" action="{% url 'webtintuc:search' %}" method="GET">
-                        <input class="search-input" type="text" placeholder="Tìm kiếm..." name="q" value="{{ query }}">
-                        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-
-                <div class="auth-links">
-                    <a href="#" class="link-text" onclick="showLogin()">Đăng nhập</a>
-                    <span class="divider"></span>
-                    <a href="#" class="link-text" onclick="showRegister()">Đăng ký</a>
+                <a href="{% url 'webtintuc:index' %}" class="logo">News Website</a>
+                <form class="search-box" action="{% url 'webtintuc:search' %}" method="GET">
+                    <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+                    <button type="submit">Search</button>
+                </form>
+                <div class="user-menu">
+                    {% if user.is_authenticated %}
+                        <span class="user-greeting">Xin chào {{ user.username }}</span>
+                        <a href="{% url 'webtintuc:my_posts' %}" class="btn-small">My Posts</a>
+                        <a href="{% url 'webtintuc:logout' %}" class="btn-small">Logout</a>
+                    {% else %}
+                        <a href="{% url 'webtintuc:login' %}" class="btn-small">Login</a>
+                        <a href="{% url 'webtintuc:register' %}" class="btn-small">Register</a>
+                    {% endif %}
                 </div>
             </div>
 
             <!-- NAVIGATION -->
-            <div class="navbar">
-                <nav class="categories">
-                    <a href="{% url 'webtintuc:index' %}" class="cat-btn {% if not selected_category %}active{% endif %}">
-                        Trang chủ
+            <nav class="navbar">
+                <a href="{% url 'webtintuc:index' %}" class="nav-item">Home</a>
+                {% for category in categories %}
+                    <a href="{% url 'webtintuc:category' category.slug %}" class="nav-item">
+                        {{ category.name }}
                     </a>
-                    {% for category in categories %}
-                        <a href="{% url 'webtintuc:category' category.slug %}" 
-                           class="cat-btn {% if selected_category == category.slug %}active{% endif %}">
-                            {{ category.name }}
-                        </a>
-                    {% endfor %}
-                </nav>
-            </div>
-        </div>
+                {% endfor %}
+            </nav>
+        </header>
 
         <!-- MAIN CONTENT -->
-        {% block content %}{% endblock %}
+        <main>
+            {% block content %}{% endblock %}
+        </main>
 
         <!-- FOOTER -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>TinTức.News</h4>
-                    <ul>
-                        <li><a href="{% url 'webtintuc:index' %}" class="link-text">Trang Chủ</a></li>
-                        <li><a href="#" class="link-text">Về Chúng Tôi</a></li>
-                        <li><a href="#" class="link-text">Liên Hệ</a></li>
-                        <li><a href="#" class="link-text">Quảng Cáo</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Danh Mục</h4>
-                    <ul>
-                        {% for category in categories %}
-                            <li><a href="{% url 'webtintuc:category' category.slug %}" class="link-text">{{ category.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Liên Hệ & Hỗ Trợ</h4>
-                    <ul>
-                        <li><a href="mailto:info@tintuc.com" class="link-text">Email: info@tintuc.com</a></li>
-                        <li><a href="tel:+84123456789" class="link-text">Hotline: +84 (0) 123 456 789</a></li>
-                        <li><a href="#" class="link-text">Gửi Góp Ý</a></li>
-                        <li><a href="#" class="link-text">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Mạng Xã Hội</h4>
-                    <div class="social-links">
-                        <a href="#" class="social-icon" target="_blank" title="Facebook">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="#" class="social-icon" target="_blank" title="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-icon" target="_blank" title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-icon" target="_blank" title="YouTube">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 TinTức.News. Bảo lưu mọi quyền. | 
-                    <a href="#" class="link-text">Chính Sách Bảo Mật</a> | 
-                    <a href="#" class="link-text">Điều Khoản Sử Dụng</a> |
-                    <a href="#" class="link-text">Liên Hệ Quảng Cáo</a>
-                </p>
-            </div>
+        <footer>
+            <p>&copy; 2024 News Website. All rights reserved.</p>
         </footer>
     </div>
-
-    <!-- MODALS -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('loginModal')">&times;</span>
-            <h2>Đăng Nhập</h2>
-            <form>
-                <input type="email" placeholder="Email hoặc Tên đăng nhập" required>
-                <input type="password" placeholder="Mật khẩu" required>
-                <button type="submit">Đăng Nhập</button>
-            </form>
-            <p>Chưa có tài khoản? <a href="#" onclick="switchModal()">Đăng ký ngay</a></p>
-        </div>
-    </div>
-
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('registerModal')">&times;</span>
-            <h2>Đăng Ký</h2>
-            <form>
-                <input type="text" placeholder="Tên đầy đủ" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Mật khẩu" required>
-                <input type="password" placeholder="Xác nhận mật khẩu" required>
-                <button type="submit">Đăng Ký</button>
-            </form>
-            <p>Đã có tài khoản? <a href="#" onclick="switchModal()">Đăng nhập</a></p>
-        </div>
-    </div>
-
-    <script src="{% static 'js/trang_chu.js' %}"></script>
-    {% block extra_js %}{% endblock %}
 </body>
 </html>

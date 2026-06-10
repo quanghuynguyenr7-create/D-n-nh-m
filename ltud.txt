@@ -1,0 +1,80 @@
+﻿CHƯƠNG I: TÌM HIỂU BÀI TOÁN
+1.1 Giới thiệu bài toán
+1.1.1. Lý do chọn bài toán
+Trong bối cảnh chuyển đổi số mạnh mẽ hiện nay, Internet đang dần trở thành kênh truyền thông và tiêu thụ thông chính của người dân Việt Nam. Theo DataReportal, vào đầu năm 2025, có 79,8 triệu người sử dụng internet tại Việt Nam, trong khi tỷ lệ sử dụng internet đạt 78,8%, tính đến tháng 1 năm 2025, Việt Nam có 76,2 triệu người dùng mạng xã hội, chiếm 75,2% tổng dân số (Kemp, 2025).
+Theo số liệu thống kê năm 2024 của Wearesocial, 83,3% người dùng internet tại Việt Nam sử dụng internet để đọc tin tức, trung bình 1 giờ 47 phút mỗi ngày (VietNam.vn, 2025).
+Người dùng ngày nay không chỉ tiếp nhận thông tin một chiều mà còn có nhu cầu tương tác, bình luận và chia sẻ nội dung với cộng đồng. Hành vi tiêu dùng nội dung đã thay đổi đáng kể, như việc muốn bày tỏ ý kiến, phản hồi trực tiếp dưới bài viết thông qua hệ thống bình luận, chia sẻ lên các trang mạng xã hội cá nhân (Facebook, X, Zalo…), cá nhân hóa trải nghiệm như: lưu bài, theo dõi chủ đề yêu thích, nhận thông báo bài mới…
+Mặc dù nhu cầu xây dựng website tin tức và blog ngày càng tăng, nhiều tổ chức và cá nhân vẫn gặp phải các vấn đề nan giải trong quá trình triển khai như:
+Thứ nhất, nội dung phân tán
+Các bài viết, chuyên mục và dữ liệu được lưu trữ rời rạc, thiếu sự liên kết và phân loại khoa học, nội dung thường được sắp xếp theo thời gian đăng tải hoặc mức độ tương tác thay vì theo nhu cầu, sở thích và ngữ cảnh của từng người dùng, dẫn đến tình trạng quá tải thông tin và khó tiếp cận những nội dung thực sự giá trị. Điều này khiến người dùng khó tìm kiếm thông tin, đồng thời làm giảm hiệu quả quản lý và khai thác nội dung của quản trị viên.
+Thứ hai, thiếu hệ thống quản lý bài viết hiệu quả
+Khối lượng nội dung mới khổng lồ và liên tục được cập nhật, tạo áp lực rất lớn lên các hệ thống lập chỉ mục. Tin tức có thời gian hiển thị cực kỳ ngắn – xuất hiện trong kết quả tìm kiếm sau 6 giờ có thể đã quá muộn.
+Thứ 3, tương tác người dùng chưa tối ưu
+Website chưa cung cấp đầy đủ các tính năng hỗ trợ người dùng như bình luận, đánh giá, chia sẻ hoặc cá nhân hóa nội dung. Điều này làm giảm mức độ gắn kết của độc giả và hạn chế khả năng xây dựng cộng đồng người dùng trung thành (Center for Media Engagement, 2020).
+Đối với sinh viên ngành Công nghệ tài chính, đặc biệt là những người đang chuẩn bị bước vào thị trường lao động, việc xây dựng một website tin tức là cách hiệu quả để tạo ấn tượng với nhà tuyển dụng. Qua đó, sinh viên có thể trình bày các dự án đã làm, kỹ năng chuyên môn, quá trình học tập, kinh nghiệm làm việc và các bài viết chia sẻ kiến thức
+Với những vấn đề và mục đích đã được nêu trên, nhóm quyết định lựa chọn đề tài “Xây dựng website tin tức và blog” để vừa áp dụng kiến thức lập trình website đã học vào thực tế, vừa tạo ra một sản phẩm có thể sử dụng và phát triển lâu dài.
+1.1.2. Đề xuất các giải pháp thực hiện
+Để xây dựng hệ thống website tin tức và blog, nhóm đề xuất các phương án giải pháp kỹ thuật khác nhau, mỗi phương án có ưu và nhược điểm riêng. Sau khi phân tích, nhóm đã lựa chọn phương án phù hợp nhất, phát triển website từ đầu (from scratch) sử dụng ngôn ngữ Python kết hợp với framework Django — một trong những framework web mạnh mẽ và phổ biến nhất hiện nay — quản lý mã nguồn bằng GitHub, đảm bảo toàn quyền kiểm soát kiến trúc và tính năng hệ thống.
+1.1.2.1. Công nghệ & Cơ sở dữ liệu
+- Backend: Sử dụng Python với Django vì có sẵn công cụ quản lý (Django Admin), bảo mật tốt (CSRF) và dễ quản lý database (ORM). (Dự phòng: Flask nếu cần nhẹ hơn).
+- Database: Dùng SQLite (db_sqlite3) cho giai đoạn hiện tại. Định nghĩa bảng bằng Django Models và chạy lệnh migrate để khởi tạo. (Dự phòng: PostgreSQL/MySQL khi mở rộng).
+1.1.2.2. Giao diện & Tối ưu hiển thị (Frontend)
+- Giao diện: Thiết kế responsive (đẹp trên cả máy tính và điện thoại) bằng Bootstrap hoặc Tailwind CSS.
+- Tài nguyên: Gom file CSS, JS, ảnh vào thư mục static/. Nén ảnh và tối ưu CSS để web tải nhanh hơn.
+1.1.2.3. Quản lý code và triển khai (DevOps)
+- Quản lý mã nguồn: Dùng Git & GitHub, chia nhánh dev (phát triển) và main (hoàn chỉnh). Dùng Issues và Pull Requests để làm việc nhóm.
+- Triển khai: Chạy thử nghiệm ở máy cục bộ (runserver), sau đó deploy lên hosting miễn phí như Heroku hoặc PythonAnywhere thông qua file requirements.txt.
+1.1.2.4. Tính năng nâng cao, bảo mật và kiểm thử
+- Tính năng thêm: Dùng JavaScript làm hiệu ứng mượt mà, gắn Google Analytics theo dõi lượt truy cập, tích hợp ô tìm kiếm hoặc chatbot nếu kịp tiến độ.
+- Bảo mật và kiểm thử: Tận dụng bảo mật form của Django, dùng tool kiểm tra lỗi (Django Debug Toolbar) và test thủ công trên nhiều trình duyệt/thiết bị.
+1.1.2.5. Tài liệu hóa và dự phòng rủi ro
+- Tài liệu: Viết file README.md hướng dẫn cài đặt/chạy code và làm báo cáo Word để phục vụ thuyết trình.
+- An toàn dữ liệu: Backup code và database định kỳ lên Google Drive/USB. Chuẩn bị sẵn phương án đổi hosting (sang Netlify) nếu Heroku gặp sự cố.
+1.1.2.6. Phạm vi dự án
+Về phạm vi dự án, nhóm đưa ra các đề xuất về dự án như sau:
+Thứ nhất, không yêu cầu hệ thống lớn như báo điện tử
+- Không yêu cầu hạ tầng quy mô lớn với hàng triệu người dùng đồng thời như VnExpress, Tuổi Trẻ Online.
+- Không tích hợp các tính năng phức tạp: livestream, podcast, quảng cáo tự động (programmatic advertising).
+- Không đòi hỏi hệ thống CDN toàn cầu hay kiến trúc microservices phức tạp.
+Thứ hai, tập trung mức blog và tin tức cơ bản
+- Phù hợp cho cá nhân, nhóm nhỏ hoặc tổ chức vừa và nhỏ muốn xây dựng kênh truyền thông riêng, tập trung phát triển vào hai chủ đề chính: Tài chính và công nghệ nhằm tối ưu hóa nội dung cho các cá nhân hoặc sinh viên muốn tìm hiểu về sự phát triển của Công nghệ tài chính tại Việt Nam và trên thế giới, bên cạnh đó, tối ưu hóa cấu trúc cho trang web, ảnh hưởng đến trải nghiệm cá nhân.
+- Hỗ trợ tối đa vài trăm bài viết và vài nghìn lượt truy cập mỗi ngày — hoàn toàn đủ cho mô hình blog chuyên nghiệp.
+- Giao diện đơn giản, dễ sử dụng, không yêu cầu người dùng có kiến thức kỹ thuật chuyên sâu.
+- Ưu tiên hiệu năng, bảo mật và khả năng mở rộng trong tương lai khi nhu cầu phát triển.
+1.1.3. Đánh giá tính khả thi của hệ thống
+Về lợi thế:
+Thứ nhất, nền tảng sẵn có: Tận dụng tốt kiến thức đã học (HTML, CSS, JS) kết hợp với thư viện mẫu Theme Wagon để đẩy nhanh tiến độ làm giao diện mà không cần kỹ năng thiết kế chuyên sâu.
+Thứ hai, hạ tầng tối giản: Triển khai nhanh chóng, hoàn toàn miễn phí và dễ thao tác qua các nền tảng như GitHub Pages hoặc Netlify.
+Thứ ba, hệ thống tinh gọn: Không yêu cầu xử lý dữ liệu lớn hay cấu trúc database phức tạp, giúp việc lập trình và bảo trì trở nên đơn giản.
+Tuy nhiên, một số những hạn chế cần giải quyết như sau:
+Thứ nhất, thẩm mỹ và trải nghiệm (UI/UX): Cần đầu tư thời gian để tối ưu giao diện sao cho đẹp mắt và thân thiện với người dùng.
+Thứ hai, bảo mật khi mở rộng: Khi phát triển thêm backend (quản lý blog, xử lý form liên hệ qua API), cần chú ý cấu hình bảo mật để đảm bảo an toàn dữ liệu.
+Như vậy, nhóm đánh giá dự án có tính ứng dụng thực tế cao, vừa sức với sinh viên, đồng thời có nền tảng tốt để tiếp tục mở rộng sau khi kết thúc môn học.
+1.1.4. Lập kế hoạch thực hiện
+1.1.4.1. Giai đoạn 1: Chuẩn bị & Thiết kế
+- Xác định rõ phần làm cho từng người
+- Tìm kiếm và lựa chọn template website  mẫu phù hợp với đề tài.
+- Xác định các trang chính và phụ của website (ví dụ: Trang chủ, Trang danh mục, Trang chi tiết bài viết…)
+- Tạo repository tại Github để cả nhóm có thể cùng nhau phát triển
+- Tạo dự án Django, cấu hình các ứng dụng (apps) cần thiết.
+- Bắt đầu tích hợp các file HTML, CSS, JS của template vào cấu trúc dự án Django.
+1.1.4.2. Giai đoạn 2: Phát triển
+- Xác định các mô hình dữ liệu cần thiết cho dự án
+- Viết mã cho các model đã thiết kế
+- Tạo các view và url cơ bản cho các trang không cần tương tác nhiều với database ban đầu).
+- Xây dựng thêm các file template cần bổ sung
+- Xây dựng file template base.html để hiện các phần footer và header cho các template
+- Đảm bảo các file template được load đúng và các đường dẫn tài nguyên (CSS, JS, hình ảnh) hoạt động chính xác.
+Tích hợp thêm các tính năng phức tạo vào views, form, template như hỗ trợ bảo mật, sử dụng vòng lặp để hiển thị, …
+- Điều chỉnh màu sắc, font chữ, bố cục để phù hợp với phong cách cá nhân và yêu cầu.
+- Đặt tiêu đề cho các trang.
+1.1.4.3. Giai đoạn 3: Kiểm thử & Hoàn thiện
+- Tạo tài khoản super admin để truy cập và kiểm thử các chức năng dành cho super admin
+- Toàn bộ nhóm cùng kiểm tra tất cả các tính năng đã triển khai.
+- Đảm bảo website tải nhanh và mượt mà.
+- Thu thập tất cả các lỗi được tìm thấy và tiến hành sửa chữa.
+- Dọn dẹp, sắp xếp lại mã nguồn cho dễ đọc và dễ bảo trì hơn.
+Nguồn tham khảo
+Center for Media Engagement. (2020, 10 21). Retrieved from What Happens When They're Gone or When Newsrooms Switch Platforms: https://mediaengagement.org/research/comment-changes/
+Kemp, S. (2025, 3 3). DataReportal. Retrieved from Số hóa 2025: Việt Nam: https://datareportal.com/reports/digital-2025-vietnam?rq=digital+viet+nam
+VietNam.vn. (2025, 1 1). Retrieved from Is traditional journalism losing the game?: https://www.vietnam.vn/en/bao-chi-truyen-thong-dang-thua-cuoc

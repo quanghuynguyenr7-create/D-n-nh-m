@@ -1,0 +1,106 @@
+﻿1.2. Tìm hiểu yêu cầu người dùng
+1.2.1. Khảo sát người dùng
+a. Xác định các bên liên quan 
+Trước khi tiến hành thu thập yêu cầu, cần xác định đầy đủ các nhóm đối tượng có liên quan đến hệ thống. Đây là bước nền tảng của toàn bộ quy trình, vì mục tiêu của giai đoạn này là xác định tất cả các bên liên quan bị ảnh hưởng bởi hệ thống, dù trực tiếp hay gián tiếp. Đối với hệ thống website tin tức và blog, các bên liên quan gồm:
+Nhóm
+	Vai trò
+	Nhu cầu chính
+	Quản trị viên 
+	Quản lý toàn bộ hệ thống
+	Phân quyền, thống kê, kiểm duyệt
+	Biên tập viên 
+	Duyệt và chỉnh sửa bài viết
+	Giao diện duyệt bài nhanh, quản lý lịch đăng
+	Tác giả
+	Viết và đăng bài
+	Trình soạn thảo trực quan, lưu nháp
+	Người đọc 
+	Tiêu thụ nội dung
+	Tìm kiếm, bình luận, chia sẻ, cá nhân hóa
+	b. Lựa chọn phương pháp thu thập yêu cầu
+Mỗi phương pháp thu thập yêu cầu đều có ưu điểm riêng; chi phí và thời gian là những yếu tố quan trọng khi lựa chọn phương pháp phù hợp, và trong nhiều trường hợp có thể kết hợp nhiều phương pháp để đảm bảo thu thập đầy đủ thông tin cần thiết. Dự án áp dụng kết hợp các phương pháp sau:
+Phỏng vấn : Đây là phương pháp cốt lõi, được thực hiện với quản trị viên, biên tập viên và một nhóm người dùng đại diện. Trong quá trình phỏng vấn, cần đặt các câu hỏi khai thác sâu và ghi chép chi tiết để hiểu rõ nhu cầu, điểm đầu và kết quả mong muốn của từng bên liên quan.
+Khảo sát: Khảo sát cho phép thu thập thông tin từ nhiều người trong khoảng thời gian tương đối ngắn, đặc biệt hữu ích để đo lường mức độ ưu tiên các tính năng từ phía độc giả.
+Quan sát người dùng : Nghiên cứu thực địa — bao gồm phỏng vấn và quan sát trong môi trường thực tế của người dùng — giúp đặt nghiên cứu trải nghiệm người dùng vào đúng bối cảnh sử dụng.
+Phân tích tài liệu : Xem xét các hệ thống CMS phổ biến như WordPress, Ghost, để hiểu các quy trình nghiệp vụ chuẩn trong lĩnh vực.
+c. Lập kế hoạch thực hiện
+Quá trình xác định yêu cầu được tổ chức theo ba giai đoạn tuần tự:
+* Giai đoạn 1 — Thu thập : Phỏng vấn các bên liên quan, phát phiếu khảo sát trực tuyến, thu thập dữ liệu phân tích hành vi người dùng hiện tại.
+* Giai đoạn 2 — Phân tích: Tổng hợp, phân loại và ưu tiên hóa các yêu cầu thu thập được. Xây dựng sơ đồ quy trình nghiệp vụ (business process diagram).
+* Giai đoạn 3 — Xác nhận : Rà soát yêu cầu với các bên liên quan để đảm bảo tính chính xác và sự thống nhất về mức độ ưu tiên.
+
+
+1.2.2. Tìm hiểu các quy trình nghiệp vụ
+Dựa trên kết quả thu thập yêu cầu, hệ thống website tin tức và blog được xác định gồm bốn quy trình nghiệp vụ cốt lõi:
+a. Quy trình tạo và xuất bản bài viết
+Đây là quy trình trung tâm của toàn hệ thống, gồm các bước sau:
+1. Lên ý tưởng & Phân công: Quản trị viên hoặc biên tập viên xác định chủ đề, phân công tác giả.
+2. Soạn thảo: Tác giả viết bài trên trình soạn thảo WYSIWYG, chèn hình ảnh, định dạng nội dung.
+3. Lưu nháp & Xem trước: Tác giả lưu bản nháp và xem trước giao diện hiển thị trước khi nộp duyệt.
+4. Nộp bài duyệt: Tác giả chuyển bài sang trạng thái "Chờ duyệt".
+5. Biên tập & Phê duyệt: Biên tập viên kiểm tra nội dung, chỉnh sửa nếu cần, sau đó phê duyệt hoặc trả về tác giả.
+6. Lên lịch & Xuất bản: Biên tập viên đặt thời gian xuất bản hoặc đăng ngay lập tức.
+
+
+Một quy trình biên tập có cấu trúc tốt giúp loại bỏ điểm tắc nghẽn, giảm độ trễ phê duyệt và đảm bảo chất lượng nội dung nhất quán.
+b. Quy trình quản lý nội dung
+Quy trình này đảm bảo toàn bộ kho nội dung được tổ chức, duy trì và khai thác hiệu quả:
+* Phân loại nội dung: Gán danh mục , thẻ và chủ đề cho từng bài viết.
+* Tìm kiếm & Lọc: Quản trị viên sử dụng công cụ tìm kiếm toàn văn và bộ lọc đa tiêu chí để quản lý kho bài viết.
+* Cập nhật & Lưu trữ: Biên tập viên cập nhật hoặc lưu trữ các bài viết hết hiệu lực. Một thời gian sau khi đăng bài, đặc biệt với các bài viết hoặc blog, cần kiểm tra xem nội dung có còn cập nhật hay cần chỉnh sửa không — việc tái sử dụng nội dung có thể giúp bài cũ tăng thứ hạng tìm kiếm và thu hút thêm lượt xem.
+* Thống kê & Phân tích: Quản trị viên theo dõi lượt xem, thời gian đọc, tỉ lệ thoát trang qua bảng điều khiển Analytics.
+c. Quy trình tương tác người dùng
+Quy trình này mô tả các hành vi tương tác của độc giả với nội dung:
+1. Người đọc truy cập bài viết → xem nội dung.
+2. Người đọc đăng nhập (nếu chưa có tài khoản thì đăng ký) để thực hiện các tương tác.
+3. Các hành động tương tác bao gồm: bình luận, thả cảm xúc , lưu bài yêu thích, chia sẻ lên mạng xã hội.
+4. Hệ thống ghi nhận hành vi, cập nhật hồ sơ sở thích người dùng và sinh gợi ý bài viết liên quan.
+5. Người dùng nhận thông báo email khi có bài viết mới phù hợp sở thích.
+d. Quy trình kiểm duyệt bình luận
+* Người dùng gửi bình luận → hệ thống lọc tự động.
+* Bình luận hợp lệ hiển thị ngay hoặc chờ quản trị viên duyệt.
+* Người dùng khác có thể báo cáo bình luận vi phạm.
+* Quản trị viên xem xét và ẩn/xóa bình luận vi phạm.
+1.2.3. Đánh giá quy trình hiện tại và đề xuất cải tiến
+a. Đánh giá quy trình hiện tại
+Qua phân tích các hệ thống blog và tin tức tương tự đang vận hành, một số điểm yếu phổ biến được xác định:
+Quy trình soạn thảo và xuất bản: 68% các nhóm nội dung gặp phải tình trạng quy trình làm việc kém hiệu quả, dẫn đến năng suất giảm 30%. Trong báo cáo xu hướng Content Marketing B2B 2025, 33% các nhà tiếp thị cho rằng quản lý vấn đề quy trình làm việc và quy trình phê duyệt nội dung là một thách thức lớn.
+Quản lý và phân loại nội dung: Nội dung thường được lưu trữ rời rạc, thiếu hệ thống phân loại nhất quán. Liên kết bị gãy và lỗi trang sẽ bị Google ghi nhận và ảnh hưởng đến thứ hạng tìm kiếm của website.
+Cộng tác nhóm: 90% khách hàng được khảo sát tạo nội dung trong Google Docs, nhưng các quy trình CMS truyền thống buộc họ phải chuyển nội dung thủ công, gây thất vọng và kém hiệu quả.
+Phân tích hiệu suất: Nhiều hệ thống thiếu công cụ đo lường tích hợp, khiến biên tập viên khó đánh giá mức độ hiệu quả của nội dung.
+b. Đề xuất cải tiến
+Dựa trên các điểm yếu đã xác định, dự án đề xuất các hướng cải tiến cụ thể:
+Tự động hóa quy trình biên tập: Tự động hóa trong quy trình biên tập có thể cắt giảm thời gian xử lý nội dung lên đến 50%, cho phép xuất bản nhanh hơn và nâng cao hiệu quả tổng thể. Hệ thống cần tích hợp thông báo tự động khi bài viết chuyển trạng thái.
+Chuẩn hóa phân loại nội dung: Xây dựng hệ thống phân loại ba cấp nhất quán. Lịch nội dung biên tập giúp nhóm lập kế hoạch và cập nhật các nhiệm vụ sắp tới; với cách trình bày trực quan về tất cả các dự án và nỗ lực nội dung, việc triển khai chiến lược nội dung trở nên dễ dàng hơn nhiều.
+Tích hợp Analytics vào bảng điều khiển: Bảng điều khiển tập trung giúp hiển thị tổng quan toàn bộ website, cung cấp ước tính thời gian thực, hướng dẫn thực hành tốt nhất và quy trình tích hợp sẵn cho phê duyệt, phân quyền và thông báo.
+Cải thiện trải nghiệm người dùng cuối: Agile nhấn mạnh tính linh hoạt và khả năng thích ứng; thu thập yêu cầu là một quy trình liên tục diễn ra xuyên suốt dự án, với trọng tâm là ưu tiên các yêu cầu quan trọng nhất dựa trên phản hồi người dùng và giá trị kinh doanh. Do vậy, hệ thống bình luận, gợi ý bài liên quan và tính năng cá nhân hóa cần được phát triển theo vòng lặp, liên tục cải tiến dựa trên dữ liệu hành vi thực tế.
+Bảng tóm tắt đề xuất cải tiến:
+Vấn đề hiện tại
+	Giải pháp đề xuất
+	Lợi ích kỳ vọng
+	Quy trình duyệt bài thủ công, chậm
+	Thông báo tự động, trạng thái bài viết rõ ràng
+	Giảm thời gian xuất bản
+	Nội dung phân tán, khó tìm
+	Phân loại 3 cấp + tìm kiếm toàn văn
+	Tăng khả năng khám phá nội dung
+	Thiếu dữ liệu hiệu suất
+	Tích hợp Analytics vào Admin Dashboard
+	Ra quyết định dựa trên dữ liệu
+	Tương tác người dùng hạn chế
+	Bình luận, reaction, gợi ý bài liên quan
+	Tăng thời gian ở lại trang, xây dựng cộng đồng
+	Cộng tác nhóm kém hiệu quả
+	Hệ thống phân quyền rõ ràng, lịch biên tập
+	Nâng cao năng suất nhóm
+	
+
+NGUỒN THAM KHẢO 
+Brightspot. (2025). CMS features that boost productivity and simplify content management. https://www.brightspot.com/cms-resources/marketing-insights/streamlining-content-creation-and-management-with-cms
+cflowapps. (2026). Editorial Workflow: How to Streamline Content Creation for Maximum Efficiency. https://www.cflowapps.com/editorial-workflow/
+cflowapps. (2025). A Complete Guide for Content Management Workflow. https://www.cflowapps.com/content-management-workflow/
+GeeksforGeeks. (2025). Requirements Gathering — Introduction, Processes, Benefits and Tools. https://www.geeksforgeeks.org/software-engineering/requirements-gathering-introduction-processes-benefits-and-tools/
+Indeed. (2024, August 15). 12 Techniques for Requirement Gathering. https://www.indeed.com/career-advice/career-development/requirement-gathering-techniques
+Osterling, C. (2024). Effective Requirements Gathering: Stakeholders, Research, and Validation. Beyond the Backlog. https://beyondthebacklog.com/2024/01/30/effective-requirements-gathering/
+Pantheon. (2025). Essential Features in Editorial Workflow Software. https://pantheon.io/learning-center/content-operations/editorial-workflow-software
+TecEd. (2023). Requirements Gathering. https://www.teced.com/services/user-interface-design/requirements-gathering/

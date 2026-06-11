@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}News Website{% endblock %}</title>
+    <title>{% block title %}DIGIPUSLE - News and Blog{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'images/logo.jpg' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
         * {
@@ -305,7 +306,7 @@
             <div class="header-top">
                 <!-- LOGO -->
                 <a href="{% url 'webtintuc:index' %}" class="logo">
-                    <img src="{% static 'images/logo.jpg' %}" alt="Logo" style="width: 90px; margin-left: -30px">
+                    <img src="{% static 'images/logo.jpg' %}" alt="Logo" style="width: 100px; margin-left: -40px">
                 </a>
                 
                 <!-- HEADER INFO & SHORTCUTS -->

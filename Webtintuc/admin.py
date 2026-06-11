@@ -32,7 +32,7 @@ class PostAdmin(admin.ModelAdmin):
             'fields': ('title', 'slug', 'post_type', 'category')
         }),
         ('Nội dung', {
-            'fields': ('summary', 'content')
+            'fields': ('summary', 'content', 'thumbnail')
         }),
         ('Tác giả & Thẻ', {
             'fields': ('author', 'tags')

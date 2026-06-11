@@ -328,7 +328,6 @@
                 <div class="user-menu">
                     {% if user.is_authenticated %}
                         <span class="user-greeting">👤 {{ user.username }}</span>
-                        <a href="{% url 'webtintuc:my_posts' %}">Bài viết của tôi</a>
                         <a href="{% url 'webtintuc:logout' %}">Đăng xuất</a>
                     {% else %}
                         <a href="{% url 'webtintuc:login' %}">Đăng nhập</a>
@@ -358,7 +357,7 @@
             <div class="footer-content">
                 <!-- Section 1: Navigation -->
                 <div class="footer-section">
-                    <h4>🔗 Điều Hướng</h4>
+                    <h4>Điều Hướng</h4>
                     <ul>
                         <li><a href="{% url 'webtintuc:index' %}">Trang Chủ</a></li>
                         <li><a href="#">Danh mục</a></li>
@@ -372,11 +371,11 @@
                 <div class="footer-section">
                     <h4>Pháp Lý & Hỗ Trợ</h4>
                     <ul>
-                        <li><a href="#">Điều khoản sử dụng</a></li>
-                        <li><a href="#">Chính sách bảo mật</a></li>
-                        <li><a href="#">Hỗ trợ / FAQ</a></li>
-                        <li><a href="#">Hướng dẫn</a></li>
-                        <li><a href="#">Quảng cáo</a></li>
+                        <li><a href="{% url 'webtintuc:chinh_sach' %}">Điều khoản sử dụng</a></li>
+                        <li><a href="{% url 'webtintuc:chinh_sach' %}">Chính sách bảo mật</a></li>
+                        <li><a href="{% url 'webtintuc:faq' %}">Hỗ trợ / FAQ</a></li>
+                        <li><a href="{% url 'webtintuc:huong_dan' %}">Hướng dẫn</a></li>
+                        <li><a href="{% url 'webtintuc:quang_cao' %}">Quảng cáo</a></li>
                     </ul>
                 </div>
                 
@@ -384,9 +383,8 @@
                 <div class="footer-section">
                     <h4>Kết Nối & Liên Hệ</h4>
                     <ul>
-                        <li><a href="#">Liên hệ chúng tôi</a></li>
-                        <li><a href="#">Gửi phản hồi</a></li>
-                        <li><a href="#">Báo cáo lỗi</a></li>
+                        <li><p style="color: #bdc3c7; font-size: 14px;">Liên hệ chúng tôi</p></li>
+                        <br>
                     </ul>
                     <div class="social-links">
                         <a href="#" title="Facebook">f</a>
@@ -399,7 +397,7 @@
             
             <!-- Footer Bottom -->
             <div class="footer-bottom">
-                <p>&copy; 2024 News Website. All rights reserved. | Phát triển bởi Django Team</p>
+                <p>&copy; 2026 News Website. All rights reserved. | Phát triển bởi Team 5 - K27CNTCB</p>
             </div>
         </footer>
     </div>

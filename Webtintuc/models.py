@@ -64,6 +64,12 @@ class Post(models.Model):
     
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
+    thumbnail = models.ImageField(
+        upload_to='thumbnails/',
+        null=True,
+        blank=True,
+        help_text="Ảnh tiêu đề bài viết"
+    )
     content = models.TextField()
     summary = models.TextField(help_text="Tóm tắt ngắn gọn bài viết")
     
@@ -109,7 +115,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
-    is_approved = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=True)
     parent = models.ForeignKey(
         'self',
         on_delete=models.CASCADE,

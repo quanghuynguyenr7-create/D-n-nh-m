@@ -53,7 +53,22 @@ class LoginForm(forms.Form):
     )
 
 
-# ==================== COMMENT FORMS ====================
+
+# ==================== POST FORMS ====================
+class PostForm(forms.ModelForm):
+    """Form tạo/chỉnh sửa bài viết (có ảnh tiêu đề)"""
+    class Meta:
+        model = Post
+        fields = ('title', 'summary', 'content', 'category', 'thumbnail', 'status', 'post_type')
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Tiêu đề bài viết'}),
+            'summary': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Tóm tắt ngắn gọn'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10, 'placeholder': 'Nội dung bài viết'}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'thumbnail': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'post_type': forms.Select(attrs={'class': 'form-control'}),
+        }
 class CommentForm(forms.ModelForm):
     """Form gửi bình luận"""
     content = forms.CharField(

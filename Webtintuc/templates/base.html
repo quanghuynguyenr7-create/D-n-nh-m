@@ -348,6 +348,7 @@
                 <!-- USER MENU -->
                 <div class="user-menu">
                     {% if user.is_authenticated %}
+<<<<<<< HEAD
                         <!-- Chuông thông báo -->
                         <a href="{% url 'webtintuc:notifications' %}" class="notif-bell" id="notifBell" title="Thông báo">
                             🔔
@@ -357,6 +358,9 @@
                         <a href="{% url 'webtintuc:user_profile' user.username %}" class="user-greeting">
                             👤 {{ user.username }}
                         </a>
+=======
+                        <span class="user-greeting">👤 {{ user.username }}</span>
+>>>>>>> 9f313623c56e2227293ba856e9692ed7719d004e
                         <a href="{% url 'webtintuc:logout' %}">Đăng xuất</a>
                     {% else %}
                         <a href="{% url 'webtintuc:login' %}">Đăng nhập</a>

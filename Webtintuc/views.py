@@ -307,7 +307,49 @@ def upload_image(request):
         return JsonResponse({'location': f"{settings.MEDIA_URL}content/{filename}"})
     return JsonResponse({'error': 'Không có file'}, status=400)
 
+def chinh_sach(request):
+    """Trang chính sách"""
+    context = {
+        **get_base_context(),
+    }
+    return render(request, 'chinh_sach.html', context)
+def quang_cao(request):
+    """Trang quảng cáo"""
+    context = {
+        **get_base_context(),
+    }
+    return render(request, 'quang_cao.html', context)
+def huong_dan(request):
+    """Trang hướng dẫn"""
+    context = {
+        **get_base_context(),
+    }
+    return render(request, 'huong_dan.html', context)
+def faq(request):
+    """Trang FAQ"""
+    context = {
+        **get_base_context(),
+    }
+    return render(request, 'faq.html', context)
+def category_news(request, slug):
+    """Hiển thị bài viết theo danh mục (API)"""
+    category = get_object_or_404(Category, slug=slug, category_type='news')
+    
+    posts = Post.objects.filter(
+        category=category,
+        status='published'
+    ).order_by('-published_at')
 
+    data = [
+        {
+            'title': post.title,
+            'slug': post.slug,
+            'published_at': post.published_at.strftime('%Y-%m-%d %H:%M'),
+            'views_count': post.views_count,
+        }
+        for post in posts
+    ]
+    return JsonResponse({'posts': data})
 @login_required(login_url='webtintuc:login')
 def my_posts(request):
     if not request.user.is_staff:

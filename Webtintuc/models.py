@@ -56,7 +56,16 @@ class Post(models.Model):
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
+<<<<<<< HEAD
     thumbnail = models.ImageField(upload_to='thumbnails/', null=True, blank=True)
+=======
+    thumbnail = models.ImageField(
+        upload_to='thumbnails/',
+        null=True,
+        blank=True,
+        help_text="Ảnh tiêu đề bài viết"
+    )
+>>>>>>> 9f313623c56e2227293ba856e9692ed7719d004e
     content = models.TextField()
     summary = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -138,7 +147,17 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     is_approved = models.BooleanField(default=True)
+<<<<<<< HEAD
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
+=======
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='replies'
+    )
+>>>>>>> 9f313623c56e2227293ba856e9692ed7719d004e
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

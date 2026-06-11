@@ -29,8 +29,14 @@ urlpatterns = [
     path('chinh-sua/<slug:slug>/', views.edit_post, name='edit_post'),
     path('upload-anh/', views.upload_image, name='upload_image'),
     path('bai-viet-cua-toi/', views.my_posts, name='my_posts'),
+<<<<<<< HEAD
 
     # Auth
+=======
+    path('category/<slug:slug>/posts/', views.category_news, name='category_news'),
+    
+    # Authentication
+>>>>>>> 9f313623c56e2227293ba856e9692ed7719d004e
     path('dang-ky/', views.register_view, name='register'),
     path('dang-nhap/', views.login_view, name='login'),
     path('dang-xuat/', views.logout_view, name='logout'),

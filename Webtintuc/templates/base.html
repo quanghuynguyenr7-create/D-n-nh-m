@@ -43,7 +43,7 @@
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
-            gap: 20px;
+            gap: 5px;
         }
         
         .logo {
@@ -61,7 +61,7 @@
         /* Header Info & Links */
         .header-info {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             flex: 1;
             justify-content: center;
             font-size: 14px;
@@ -86,7 +86,7 @@
         /* Search Box */
         .search-box {
             display: flex;
-            gap: 5px;
+            margin-left: 20px;
             align-items: center;
         }
         
@@ -123,18 +123,19 @@
         .user-menu {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 17px;
             white-space: nowrap;
         }
         
         .user-greeting {
+            margin-left: 10px;
             color: #27ae60;
             font-weight: bold;
             font-size: 14px;
         }
         
         .user-menu a {
-            padding: 8px 15px;
+            padding: 8px;
             background-color: #ecf0f1;
             color: #2c3e50;
             text-decoration: none;
@@ -298,7 +299,9 @@
         <header>
             <div class="header-top">
                 <!-- LOGO -->
-                <a href="{% url 'webtintuc:index' %}" class="logo">📰 News Website</a>
+                <a href="{% url 'webtintuc:index' %}" class="logo">
+                    <img src="{% static 'images/logo.jpg' %}" alt="Logo" style="width: 100px; margin-left: -40px">
+                </a>
                 
                 <!-- HEADER INFO & SHORTCUTS -->
                 <div class="header-info">

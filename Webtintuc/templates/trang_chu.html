@@ -25,12 +25,19 @@
         <div class="news-grid">
             {% for post in latest_posts %}
             <div class="news-card">
+                {% if post.thumbnail %}
+                <a href="{% url 'webtintuc:post_detail' post.slug %}">
+                    <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}" class="card-thumbnail">
+                </a>
+                {% endif %}
+                <div class="card-body">
                 <h3><a href="{% url 'webtintuc:post_detail' post.slug %}">{{ post.title }}</a></h3>
                 <p class="news-meta">
                     <strong>{{ post.author.get_full_name|default:post.author.username }}</strong> | {{ post.published_at|date:"d/m/Y" }}
                 </p>
                 <p>{{ post.summary|truncatewords:20 }}</p>
                 <a href="{% url 'webtintuc:post_detail' post.slug %}" class="link">Read More →</a>
+                </div>
             </div>
             {% empty %}
             <p>No news available</p>

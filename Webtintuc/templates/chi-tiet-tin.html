@@ -12,10 +12,77 @@
             <strong>{{ post.author.get_full_name|default:post.author.username }}</strong> | {{ post.published_at|date:"d/m/Y" }} | {{ post.views_count }} views
         </p>
 
+        {% if post.thumbnail %}
+        <div class="article-thumbnail">
+            <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}" class="thumbnail-img">
+        </div>
+        {% endif %}
+
         <div class="article-body">
             <p><strong>{{ post.summary }}</strong></p>
-            {{ post.content }}
+            {{ post.content|safe }}
         </div>
+
+        <!-- ===== LIKE / DISLIKE ===== -->
+        <div class="reaction-bar">
+            {% if user.is_authenticated %}
+            <button class="react-btn {% if user_reaction == 'like' %}active-like{% endif %}" id="btnLike" onclick="react('like')">
+                👍 <span id="likeCount">{{ like_count }}</span>
+            </button>
+            <button class="react-btn {% if user_reaction == 'dislike' %}active-dislike{% endif %}" id="btnDislike" onclick="react('dislike')">
+                👎 <span id="dislikeCount">{{ dislike_count }}</span>
+            </button>
+            {% else %}
+            <a href="{% url 'webtintuc:login' %}" class="react-btn">👍 {{ like_count }}</a>
+            <a href="{% url 'webtintuc:login' %}" class="react-btn">👎 {{ dislike_count }}</a>
+            <small style="color:#999;margin-left:8px;">Đăng nhập để tương tác</small>
+            {% endif %}
+
+            <!-- Follow danh mục -->
+            {% if user.is_authenticated %}
+            <button class="follow-btn {% if is_following %}following{% endif %}" id="followBtn" onclick="toggleFollow()">
+                {% if is_following %}✅ Đang theo dõi "{{ post.category.name }}"{% else %}+ Theo dõi "{{ post.category.name }}"{% endif %}
+            </button>
+            {% endif %}
+        </div>
+
+        <script>
+        var csrfToken = '{{ csrf_token }}';
+
+        function react(type) {
+            fetch('{% url "webtintuc:react_post" post.slug %}', {
+                method: 'POST',
+                headers: {'X-CSRFToken': csrfToken, 'Content-Type': 'application/x-www-form-urlencoded'},
+                body: 'type=' + type
+            }).then(r => r.json()).then(data => {
+                document.getElementById('likeCount').textContent = data.like_count;
+                document.getElementById('dislikeCount').textContent = data.dislike_count;
+                document.getElementById('btnLike').className = 'react-btn' + (data.user_reaction === 'like' ? ' active-like' : '');
+                document.getElementById('btnDislike').className = 'react-btn' + (data.user_reaction === 'dislike' ? ' active-dislike' : '');
+            });
+        }
+
+        {% if user.is_authenticated %}
+        var _isFollowing = {{ is_following|yesno:"true,false" }};
+        var _categoryName = '{{ post.category.name }}';
+        function toggleFollow() {
+            fetch('{% url "webtintuc:follow_category" post.category.slug %}', {
+                method: 'POST',
+                headers: {'X-CSRFToken': csrfToken}
+            }).then(r => r.json()).then(data => {
+                _isFollowing = data.following;
+                var btn = document.getElementById('followBtn');
+                if (data.following) {
+                    btn.textContent = '✅ Đang theo dõi "' + _categoryName + '"';
+                    btn.className = 'follow-btn following';
+                } else {
+                    btn.textContent = '+ Theo dõi "' + _categoryName + '"';
+                    btn.className = 'follow-btn';
+                }
+            });
+        }
+        {% endif %}
+        </script>
 
         <!-- Related Posts -->
         {% if related_posts %}
@@ -70,6 +137,53 @@
 </div>
 
 <style>
+    .reaction-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 0;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        margin: 24px 0;
+        flex-wrap: wrap;
+    }
+    .react-btn {
+        padding: 8px 18px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        background: #f8f8f8;
+        cursor: pointer;
+        font-size: 15px;
+        transition: all .2s;
+        text-decoration: none;
+        color: #333;
+    }
+    .react-btn:hover { background: #eee; }
+    .active-like  { background: #e8f4fd; border-color: #3498db; color: #2980b9; font-weight: bold; }
+    .active-dislike { background: #fdecea; border-color: #e74c3c; color: #c0392b; font-weight: bold; }
+    .follow-btn {
+        margin-left: auto;
+        padding: 8px 16px;
+        border-radius: 20px;
+        border: 1px solid #667eea;
+        background: #fff;
+        color: #667eea;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all .2s;
+    }
+    .follow-btn:hover { background: #667eea; color: #fff; }
+    .follow-btn.following { background: #667eea; color: #fff; }
+    .follow-btn.following:hover { background: #e74c3c; border-color: #e74c3c; }
+
+    .thumbnail-img {
+        width: 100%;
+        max-height: 450px;
+        object-fit: cover;
+        display: block;
+    }
+
     .back-link {
         color: #0066cc;
         text-decoration: none;

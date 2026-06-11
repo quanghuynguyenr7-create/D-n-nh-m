@@ -5,9 +5,28 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .models import Post, Category, Comment
 from .forms import RegisterForm, LoginForm, CommentForm
-
+from .forms import RegisterForm, LoginForm, CommentForm, PostForm 
 
 # ==================== CONTEXT HELPER ====================
+
+@login_required(login_url='webtintuc:login')
+def create_post(request):
+    """Tạo bài viết mới"""
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)  # request.FILES là bắt buộc để nhận ảnh
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('webtintuc:my_posts')
+    else:
+        form = PostForm()
+    
+    context = {
+        **get_base_context(),
+        'form': form,
+    }
+    return render(request, 'create_post.html', context)
 def get_base_context():
     """Trả về context chung cho tất cả templates"""
     return {

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="max-width:700px; margin:40px auto;">
+    <h2>Tạo bài viết mới</h2>
+    <!-- enctype="multipart/form-data" là BẮT BUỘC để upload ảnh -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Đăng bài</button>
+    </form>
+</div>
+{% endblock %}

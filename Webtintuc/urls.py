@@ -11,7 +11,7 @@ urlpatterns = [
     path('danh-muc/<slug:slug>/', views.category_posts, name='category'),
     path('bai-viet-cua-toi/', views.my_posts, name='my_posts'),
     path('category/<slug:slug>/posts/', views.category_news, name='category_news'),
-    
+    path('tao-bai-viet/', views.create_post, name='create_post'),
     # Authentication
     path('dang-ky/', views.register_view, name='register'),
     path('dang-nhap/', views.login_view, name='login'),
